@@ -1,0 +1,11 @@
+Source: precue
+Section: web
+Priority: optional
+Maintainer: lds-devel <lds-devel@lists.sourceforge.net>
+Build-Depends-Indep: debhelper (>> 3.0.0)
+Standards-Version: 3.5.8
+
+Package: precue
+Architecture: all
+Depends: apache2 | httpd, libapache2-mod-php4 | php4, php4-mysql
+Description: Web interface add-on module for Lyricue

@@ -1,0 +1,2 @@
+usr/share/lyricue/precue var/www/precue
+etc/lyricue/precue-htaccess.conf usr/share/lyricue/precue/.htaccess
