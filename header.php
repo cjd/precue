@@ -1,5 +1,7 @@
 <?PHP 
 session_start();
+include("includes/sessionimport.inc");
+
 $db = mysql_pconnect("localhost","lyric");
 mysql_select_db("lyricDb",$db);
 ?>
@@ -36,10 +38,10 @@ mysql_select_db("lyricDb",$db);
 		<area shape="rect" alt="View the images in the media database" coords="305,8,385,32" href="menu.php?mode=images" title="View the images in the media database">
 
 		
-		<area shape="rect" alt="View song usage statistics" coords="405,8,550,32" 			href="menu.php?mode=direct&url=audit.php"
+		<area shape="rect" alt="View song usage statistics" coords="405,8,550,32" 			href="audit.php" target=main 
 			title="View song usage statistics">
 
-		<area shape="rect" alt="About the Lyricue and Precue projects" coords="565,8,720,32" 			href="menu.php?mode=direct&url=lds.php?action=about" 
+		<area shape="rect" alt="About the Lyricue and Precue projects" coords="565,8,720,32" 			href="lds.php?action=about" target=main 
 			title="About the Lyricue and Precue projects">
 
 		<area shape="default" nohref>

@@ -1,6 +1,7 @@
 <?PHP
 session_start();
-import_request_variables("gP","");
+import_request_variables("GPC","");
+include("includes/sessionimport.inc");
 if ($db_pwd=='') {
 	$db = mysql_pconnect("$db_host","$db_user");
 } else {
