@@ -28,7 +28,7 @@ install: build
 	dh_clean -k
 	dh_installdirs etc/lyricue var/www usr/share/lyricue/precue
 
-	cp -R --parents *.php images/* includes/* media/* \
+	cp -R --parents *.php images/* includes/* \
 		debian/precue/usr/share/lyricue/precue
 	install -m 644 .htaccess \
 		debian/precue/etc/lyricue/precue-htaccess.conf

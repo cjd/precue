@@ -89,9 +89,9 @@ welcome();
 
 		<BR><BR>
 		<B>Precue:</B><BR>
-		Lyricue enables remote access to the lyrics and bible databases which Lyricue uses. It facilitates the modification of any Lyricue playlist, the viewing of available songs and the generation of song usage profiles. For security reasons, no provision for deleting songs is made in this version. Precue is implemented in as a group of PHP4 webpages suitable for use with any PHP enabled server.</B><BR><BR>
+		precue enables remote access to the lyrics and bible databases which Lyricue uses. It facilitates the modification of any Lyricue playlist, the viewing of available songs and the generation of song usage profiles. For security reasons, no provision for deleting songs is made in this version. Precue is implemented in as a group of PHP4 webpages suitable for use with any PHP enabled server.</B><BR><BR>
 
-		Lyricue was written for Gosford City Baptist Church by Clint Turner.<BR>
+		Precue was written for Gosford City Baptist Church by Clint Turner.<BR>
 		Email: <A HREF=mailto:ldsf@clintturner.com>ldsf@clintturner.com</A>. 
 		
 
