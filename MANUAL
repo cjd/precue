@@ -1,0 +1,28 @@
+Installation:
+____________
+
+Requries:
+* MYSQL 4.X
+* PHP 4.0+ (5 Should work, but untested)
+* Web server
+* Lyricue config on web server (in /etc/lyricue/default.conf)
+
+Copy all files and folders to a publicly acessible directory on your web server. Review the section in session.php marked as "USER CONFIG" to setup your database configuration. You may wish to review media.inc which links a media file to a particular song in the database.
+
+
+Creation of audit reports:
+__________________________
+
+The audits reports are generated from data which Lyricue records every time as song is added to a playlist. This record consists of the id of the song and the time and the date when it was added. Using these records, Precue can perform calculations to determine the most played and least played songs.
+
+Ordering of songs in reports:
+____________________________
+
+The order in which items are shown in the reports depends on the type of report you request:
+*Songid refers to the id of a given song in the Lyricue database. Songs added some time ago have lower ids whilst songs added recently have higher ids.
+*Count refers to the number of times this song has been added to a playlist.
+
+Report type		Method
+Full Statistics		Count in descending order then Songid in ascending order.
+Top 20/50 songs		Count in descending order then Songid in descending order.
+Bottom 20/50 songs	Count in ascending order then Songid in ascending order.

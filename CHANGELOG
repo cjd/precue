@@ -1,0 +1,58 @@
+This is the changelog for LDSF. Version numbers are used for both internal and external releases with those releases which were made to the general public being marked with "WRV".
+
+Developer names:
+----------------
+CT - Clint Turner (original author)
+CD - Chris Debenham (LDS author)
+
+Changes 0.1 -> 0.2 (30/01/2002):
+--------------------------------
+*Implemented song adding --- currently writes timestamp as YYYYMMDD000000 as php only returns time in ticks since unix epoch
+will get around to implementing calculation soon but for momement that timestamp is fine as it isn't used by LDSF or LDS at all.
+*Implemented playlist changing
+*Implemented add to playlist on available songs page
+*Implemented advanced songs search
+*Identified problem with pages playing in reverse order...(no ORDER BY pagenum in mysql query)
+*Searching by name and number now work - names can be horribly inaccurate like "ama lo" for amazing love
+*Show song contents by clicking name on playlist
+
+Changes 0.2 -> 0.2.1:
+---------------------
+*Split into header and main php pages (CD)
+*Beautiful graphical buttons (CD)
+*Removal of slow search message (I have never seen a slow MySQL search!) (CT)
+
+WRV - Changes 0.2.1 -> 0.3 (17/07/2002):
+----------------------------------------
+* Made this header file to avoid duplication and inconsistency (CT)
+* Cosmetic changes to increase polish of the interface (CT)
+* Restructured control structures to use switch where more efficient/cleaner (CT)
+* Changed source layout to spread functionality across multiple include files (CT)
+
+Changes 0.3 -> 0.4 (21/11/2002):
+--------------------------------
+All 0.4 changes by CT
+* Switch to modified menus
+* Fix playlist clearing (multiple playlists)
+* Change song viewing and adding songs to playlist to be based on id, not title (makes sense seeing id is PK!)
+* Changed song adding system to use mysql time and date functions for timestamp field
+
+Changes 0.4 -> 0.5 (28/11/2002):
+--------------------------------
+All 0.5 changes by CT
+* Added audit functionality
+* Fixed song adding (page number limitation)
+* Fixed add to playlist (including audit addition)
+* Repaired bible verse display (Passing of multiword chapter names (ie "1 Samuel") broken)
+
+Changes 0.5 -> 0.6 ---> (2003 & 2004 Multiple internal releases):
+---------------------------------------------
+* Change menus functionality to remove intermediate menus where not required.
+* Change to session-oriented framework
+* Fixed ordering of songs in audit reports
+
+Changes 0.6 -> 0.9 ---> (Public 1.0 pre-release 18/2/2005):
+* Image viewer now supported
+* Supported for new config file locations
+* Available songs default to 'A%' title filter for slow links
+* Beginning of code cleanup (moved includes)
