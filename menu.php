@@ -67,7 +67,7 @@ session_start();
 		}
 		mysql_select_db("mediaDb",$mediadb);
 	
-		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img'";
+		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img' ORDER BY Category";
 		$results = mysql_query($query,$mediadb);
 		while ($row = mysql_fetch_row($results)) {
 			echo "<LI><A HREF=\"lds.php?action=images&mode=catselect&category=$row[0]\">$row[0]</A></LI><BR>";
