@@ -1,5 +1,6 @@
 <?PHP
 session_start();
+import_request_variables("gP","");
 if ($db_pwd=='') {
 	$db = mysql_pconnect("$db_host","$db_user");
 } else {
@@ -7,7 +8,6 @@ if ($db_pwd=='') {
 }
 mysql_select_db("lyricDb",$db);
 
-import_request_variables("gP","");
 
 $pagesarray = array($pagedata1,$pagedata2,$pagedata3,$pagedata4,$pagedata5,$pagedata6,$pagedata7,$pagedata8, $pagedata9,$pagedata10,$pagedata11, $pagedata12,$pagedata13,$pagedata14,$pagedata15, $pagedata16,$pagedata17,$pagedata18, $pagedata19,$pagedata20);
 ?>

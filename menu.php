@@ -1,5 +1,6 @@
 <?PHP
 session_start();
+import_request_variables("gP","");
 ?>
 
 <HEAD>

@@ -1,5 +1,7 @@
 <?PHP
 session_start();
+import_request_variables("gP","");
+
 if ($db_pwd=='') {
 	$bibledb = mysql_pconnect("$db_host","$db_user");
 } else {
