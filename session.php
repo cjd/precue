@@ -10,10 +10,30 @@ session_register(textcolor);
 session_register(bgimage);
 session_register(bible);
 session_register(biblename);
+session_register(db_host);
+session_register(db_user);
+session_register(db_pwd);
+
+//###########
+//USER CONFIG
+//###########
+$db_host='localhost';
+$db_user='lyric';
+$db_pwd='';
+
+//include the media array
+include("media.inc");
+
+//include the audit exclusions array
+//include("auditexc.inc");
+
+//##########
+//END CONFIG
+//##########
 
 //set the general use variables
-$fver="0.5";
-$ldsver="1.2";
+$fver="0.9";
+$ldsver="2.0";
 $bgcolor="#DDDDFF";
 $linkcolor="#0000FF";
 $vlinkcolor="#0000FF";
@@ -24,23 +44,31 @@ $biblename = "King James Version (Default)";
 
 //make lyricue persistent database connection
 session_register(db);
-$db = mysql_pconnect("localhost","lyric");
+if ($db_pwd=='') {
+	$db = mysql_pconnect("$db_host","$db_user");
+} else {
+	$db = mysql_pconnect("$db_host","$db_user","$db_pwd");
+}
 mysql_select_db("lyricDb",$db);
 
 //make lyricue persistent bible database connection
 session_register($bibledb);
-$bibledb = mysql_pconnect("localhost","lyric");
+if ($db_pwd=='') {
+	$bibledb = mysql_pconnect("$db_host","$db_user");
+} else {
+	$bibledb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+}
 mysql_select_db("$bible",$bibledb);
 
 //make media database connection
 session_register($mediadb);
-$mediadb = mysql_pconnect("localhost","lyric");
+if ($db_pwd=='') {
+	$mediadb = mysql_pconnect("$db_host","$db_user");
+} else {
+	$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+}
 mysql_select_db("mediaDb",$mediadb);
 
-//include the media array
-include("media.inc");
-//include the audit exclusions array
-//include("auditexc.inc");
 
 //jump out of php and redirect to main frameset
 ?>

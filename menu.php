@@ -59,7 +59,12 @@ session_start();
 	}
 	
 	function mediamanage() {
-		$mediadb = mysql_pconnect("localhost","lyric");
+		global $mediadb,$db_pwd, $db_user, $db_host;
+		if ($db_pwd=='') {
+			$mediadb = mysql_pconnect("$db_host","$db_user");
+		} else {
+			$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+		}
 		mysql_select_db("mediaDb",$mediadb);
 	
 		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img'";

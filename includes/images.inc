@@ -4,10 +4,14 @@
 // ----------------------------------
 
 	function images() {
-	global $mediadb, $category;
+	global $mediadb, $category, $db_host, $db_user, $db_pwd;
 	
-	$mediadb = mysql_pconnect("localhost","lyric");
-mysql_select_db("mediaDb",$mediadb);
+	if ($db_pwd=='') {
+		$mediadb = mysql_pconnect("$db_host","$db_user");
+	} else {
+		$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+	}
+	mysql_select_db("mediaDb",$mediadb);
 		?>
 			<B>Available images:</B><BR><BR>
 			Background - For display behind text<BR>

@@ -1,6 +1,10 @@
 <?PHP
 session_start();
-$db = mysql_pconnect("localhost","lyric");
+if ($db_pwd=='') {
+	$db = mysql_pconnect("$db_host","$db_user");
+} else {
+	$db = mysql_pconnect("$db_host","$db_user","$db_pwd");
+}
 mysql_select_db("lyricDb",$db);
 
 echo "<BODY BGCOLOR=$bgcolor BACKGROUND=$bgimage LINK=$linkcolor VLINK=$vlinkcolor TEXT=$textcolor LINK=000000 ALINK=000000 VLINK=000000>";

@@ -1,6 +1,10 @@
 <?PHP
 session_start();
-$bibledb = mysql_pconnect("localhost","lyric");
+if ($db_pwd=='') {
+	$bibledb = mysql_pconnect("$db_host","$db_user");
+} else {
+	$bibledb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+}
 mysql_select_db("$bible",$bibledb);
 session_unregister(biblesdata);
 ?>
