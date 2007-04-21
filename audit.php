@@ -1,7 +1,7 @@
 <?PHP
 session_start();
-import_request_variables("GPC","");
 include("includes/sessionimport.inc");
+import_request_variables("GPC","");
 
 if ($db_pwd=='') {
 	$db = mysql_pconnect("$db_host","$db_user");
@@ -13,69 +13,54 @@ mysql_select_db("lyricDb",$db);
 echo "<BODY BGCOLOR=$bgcolor BACKGROUND=$bgimage LINK=$linkcolor VLINK=$vlinkcolor TEXT=$textcolor LINK=000000 ALINK=000000 VLINK=000000>";
 
 if ($action == "process") {
-	$title = "The " . strtolower($format) . " for the " . strtolower($duration);
+	$title = strtolower($format);
 
 	$query = "";
-	$begin = false;
+	$date = "\"0000-00-00\" ";
 	//construct duration limitation
 	switch ($duration) {
-		case "Last Week": $query .= "where playdate >= NOW() - INTERVAL 7 DAY ";
-			$begin = true;
+		case "Last Week": $date = "NOW() - INTERVAL 7 DAY ";
+			$title = $title . " for the " . strtolower($duration);
 			break;
-		case "Last Month": $query .= "where playdate >= NOW() - INTERVAL 1 MONTH ";
-			$begin = true;
+		case "Last Month": $date = "NOW() - INTERVAL 1 MONTH ";
+			$title = $title . " for the " . strtolower($duration);
 			break;
-		case "Last Quarter": $query .= "where playdate >= NOW() - INTERVAL 3 MONTH ";
-			$begin = true;
+		case "Last Quarter": $date = "NOW() - INTERVAL 3 MONTH ";
+			$title = $title . " for the " . strtolower($duration);
 			break;
-		case "Last Year": $query .= "where playdate >= NOW() - INTERVAL 1 YEAR ";
-			$begin = true;
+		case "Last Year": $date = "NOW() - INTERVAL 1 YEAR ";
+			$title = $title . " for the " . strtolower($duration);
+			break;
+		case "Since certain date": $date = "\"". $year."-".$month."-".$day."\" ";
+			$title = $title . " since " . $date;
 			break;
 	}
 	if ($sunday == "on") {
-		if ($begin == true) { 
-			$query .= "and WEEKDAY(playdate) = 6 " ;
-			$title .= " on Sundays";
-		}
-		else { 
-			$query .= "where WEEKDAY(playdate) = 6 ";
-			$begin = true;
-			$title .= " on Sundays";
-		}
+		$query .= "and WEEKDAY(playdate) = 6 " ;
+		$title .= " on Sundays";
 	}
 	if ($hour == "AM") {
-		if ($begin == true) { 
-			$query .= "and HOUR(playdate) < 12 ";
-			$title .= " (AM Only)";
-		} else { 
-			$query .= "where HOUR(playdate) < 12 ";
-			$begin = true;
-			$title .= " (AM Only)";
-		}
+		$query .= "and HOUR(playdate) < 12 ";
+		$title .= " (AM Only)";
 	}
 	else if ($hour =="PM") {
-		if ($begin == true) { 
-			$query .= "and HOUR(playdate) >= 12 ";
-			$title .= " (PM Only)";
-		} else { 
-			$query .= "where HOUR(playdate) >= 12 ";
-			$begin = true;
-			$title .= " (PM Only)";
-		}
+		$query .= "and HOUR(playdate) >= 12 ";
+		$title .= " (PM Only)";
 	}
 
 	switch ($format) {
 
-
-	case "Full statistics":	$query = "select count(songid) as count, songid from audit " . $query . " group by songid order by count desc, songid asc";
+	case "Full statistics":	$query = "select count(songid) as count, songid from audit where playdate >= " . $date. $query . " group by songid order by count desc, songid asc";
 		break;
-	case "Top 20 songs": $query = "select count(songid) as count, songid from audit " . $query . " group by songid order by count desc, songid desc limit 20";
+	case "Top 20 songs": $query = "select count(songid) as count, songid from audit where playdate >= " . $date. $query . " group by songid order by count desc, songid desc limit 20";
 		break;
-	case "Top 50 songs": $query = "select count(songid) as count, songid from audit " . $query . " group by songid order by count desc, songid desc limit 20";
+	case "Top 50 songs": $query = "select count(songid) as count, songid from audit where playdate >= " . $date. $query . " group by songid order by count desc, songid desc limit 50";
 		break;
-	case "20 least played songs": $query = "select count(songid) as count, songid from audit " . $query . " group by songid order by count asc, songid asc limit 20";
+	case "20 least played songs": $query = "select count(songid) as count, songid from audit where playdate >= " . $date . $query . " group by songid order by count asc, songid asc limit 20";
 		break;
-	case "50 least played songs": $query = "select count(songid) as count, songid from audit " . $query . " group by songid order by count asc, songid asc limit 50";
+	case "50 least played songs": $query = "select count(songid) as count, songid from audit where playdate >= " . $date . $query . " group by songid order by count asc, songid asc limit 50";
+		break;
+	case "New Songs": $query = "select id,title,artist,entered from lyricMain where entered > ".$date." order by id asc";
 		break;
 
 	}
@@ -87,26 +72,40 @@ if ($action == "process") {
 	<HR>
 	<TABLE WIDTH=85% ALIGN=CENTER BORDER=1>
 		<TR>
-			<TH WIDTH=8%>Rank</TH>
-			<TH WIDTH=10%>Plays</TH>
-			<TH WIDTH=7%>Id</TH>
-			<TH>Song Title</TH>
-			<TH WIDTH=10% ALIGN=CENTER>When?</TH>
+			<?PHP if ($format == "New Songs") { ?>
+				<TH WIDTH=5%>Song Id</TH>
+				<TH WIDTH=20%>Date Entered</TH>
+				<TH WIDTH=20%>Song Artist</TH>
+				<TH>Song Title</TH>
+			<?PHP } else { ?>
+				<TH WIDTH=8%>Rank</TH>
+				<TH WIDTH=10%>Plays</TH>
+				<TH WIDTH=7%>Id</TH>
+				<TH>Song Title</TH>
+				<TH WIDTH=10% ALIGN=CENTER>When?</TH>
+			<?PHP } ?>
 		</TR>
 	<?PHP
 		$result = mysql_query($query,$db);
 		$rank=1;
 		while ($thisrow = mysql_fetch_array($result)) {
-			$query2 = "select title from lyricMain where id=" . $thisrow[songid];
-			$title = mysql_fetch_array(mysql_query($query2,$db));
-			echo "\n<TR><TD>$rank</TD>";
-			echo "\n\t<TD ALIGN=CENTER>$thisrow[count]</TD>";
-			echo "\n<TD>$thisrow[songid]</TD>";
-			echo "\n<TD><A HREF=lds.php?action=showsong&song=$thisrow[songid]>";
-			echo "$title[title]</A></TD>";
-			echo "<TD><A HREF=audit.php?action=when&song=$thisrow[songid]>X</A>";
-			echo "</TD></TR>\n";
-			$rank++;
+			if ($format == "New Songs") {
+				echo "\n<TR><TD>$thisrow[id]</TD>";
+				echo "\n\t<TD>$thisrow[entered]</TD>";
+				echo "\n\t<TD>$thisrow[artist]</TD>";
+				echo "\n\t<TD>$thisrow[title]</TD></TR>\n";
+			} else {
+				$query2 = "select title from lyricMain where id=" . $thisrow[songid];
+				$title = mysql_fetch_array(mysql_query($query2,$db));
+				echo "\n<TR><TD>$rank</TD>";
+				echo "\n\t<TD ALIGN=CENTER>$thisrow[count]</TD>";
+				echo "\n<TD>$thisrow[songid]</TD>";
+				echo "\n<TD><A HREF=lds.php?action=showsong&song=$thisrow[songid]>";
+				echo "$title[title]</A></TD>";
+				echo "<TD><A HREF=audit.php?action=when&song=$thisrow[songid]>X</A>";
+				echo "</TD></TR>\n";
+				$rank++;
+			}
 		}
 	?></TABLE>
 	<?PHP
@@ -134,7 +133,24 @@ if ($action == "process") {
 						<OPTION>Last Month</OPTION>
 						<OPTION>Last Quarter</OPTION>
 						<OPTION>Last Year</OPTION>
+						<OPTION>Since certain date</OPTION>
 					</SELECT>
+					<BR/>
+					<?PHP
+						echo "Day<SELECT NAME=day>\n";
+						for ($i = 1; $i <= 31; $i++) {
+							echo "<OPTION>$i</OPTION>\n";
+						}
+						echo "</SELECT>Month<SELECT NAME=month>\n";
+						for ($i = 1; $i <= 12; $i++) {
+							echo "<OPTION>$i</OPTION>\n";
+						}
+						echo "</SELECT>Year<SELECT NAME=year>\n";
+						for ($i = 2000; $i <= 2010; $i++) {
+							echo "<OPTION>$i</OPTION>\n";
+						}
+						echo "</SELECT>\n";
+					?>
 				</TD</TR>
 <TR><TD>
 2. Select restricting options	</TD><TD>
@@ -150,6 +166,7 @@ if ($action == "process") {
 						<OPTION>Top 50 songs</OPTION>
 						<OPTION>20 least played songs</OPTION>
 						<OPTION>50 least played songs</OPTION>
+						<OPTION>New Songs</OPTION>
 					</SELECT>
 				</TD</TR>
 

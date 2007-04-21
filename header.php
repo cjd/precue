@@ -1,6 +1,7 @@
 <?PHP 
 session_start();
 include("includes/sessionimport.inc");
+import_request_variables("GPC","");
 
 $db = mysql_pconnect("localhost","lyric");
 mysql_select_db("lyricDb",$db);
@@ -19,34 +20,41 @@ mysql_select_db("lyricDb",$db);
 		}
 	//-->
 	</SCRIPT>
+
+<style>
+td {
+    text-align: center;
+    background-color: #FFFFFF;
+    border-color: #ff0000;
+    color: #ff0000;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+td:hover {
+    background-color: #8080FF;
+}
+
+</style> 
 </HEAD>
 
 <BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor; ?> TEXT=<?PHP echo $textcolor; ?>>
 
-	<CENTER><!--<IMG SRC="images/logo.jpg"><BR>-->
-
-	<IMG SRC="images/logo.jpg" BORDER=0><BR>
-	<IMG SRC="images/menu.jpg" BORDER=0 usemap="#menu">
-	
-	<map name="menu">
-		<area shape="rect" alt="Manage songs within the database" coords="42,8,109,32" 			href="menu.php?mode=song" title="Manage songs within the database">
-
-		<area shape="rect" alt="Utilise the Bible databases" coords="128,8,191,32" 			href="menu.php?mode=verse" title="Utilise the Bible databases">
-
-		<area shape="rect" alt="Manage the Lyricue playlists" coords="210,8,285,32" 			href="menu.php?mode=playlist" title="Manage the Lyricue playlists">
-
-		<area shape="rect" alt="View the images in the media database" coords="305,8,385,32" href="menu.php?mode=images" title="View the images in the media database">
-
-		
-		<area shape="rect" alt="View song usage statistics" coords="405,8,550,32" 			href="audit.php" target=main 
-			title="View song usage statistics">
-
-		<area shape="rect" alt="About the Lyricue and Precue projects" coords="565,8,720,32" 			href="lds.php?action=about" target=main 
-			title="About the Lyricue and Precue projects">
-
-		<area shape="default" nohref>
-	</map>
-
+	<CENTER>
+	<IMG SRC="images/precue.png" BORDER="0" WIDTH="601" HEIGHT="161" onclick="parent.main.location='lds.php?action=welcome'"><BR>
+    <FONT SIZE=3" COLOR="red">
+    <TABLE WIDTH="601" BORDER=1>
+    <TR>
+    <TD onclick="parent.midline.location.href='menu.php?mode=song'">Songs</TD>
+    <TD onclick="parent.midline.location.href='menu.php?mode=verse'">Verse</TD>
+    <TD onclick="parent.midline.location.href='menu.php?mode=playlist'">Playlist</TD>
+    <TD onclick="parent.midline.location.href='menu.php?mode=images'">Images</TD>
+    <TD onclick="parent.midline.location.href='menu.php?mode=direct&url=audit.php'">Audit Reports</TD>
+    <TD onclick="parent.midline.location.href='menu.php?mode=direct&url=lds.php?action=about'">About Precue</TD>
+    </TR>
+    </TABLE>
+    </FONT>
 	
 	</CENTER>
 

@@ -1,7 +1,7 @@
 <?PHP
 session_start();
-import_request_variables("GPC","");
 include("includes/sessionimport.inc");
+import_request_variables("GPC","");
 ?>
 
 <HEAD>
@@ -11,6 +11,16 @@ include("includes/sessionimport.inc");
 <BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor;?>>
 <CENTER>
 <?PHP
+	if ($mode == "direct") {
+		?><SCRIPT LANGUAGE="javascript"><!--
+			parent.main.location.href = "<?PHP echo $url; ?>";
+		//--></SCRIPT><?PHP
+    } else if ($mode == "" ){
+	} else {
+		?><SCRIPT LANGUAGE="javascript"><!--
+			parent.main.location.href = "lds.php?action=blank";
+		//--></SCRIPT><?PHP
+	}
 
 	echo "<UL>";
 	

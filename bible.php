@@ -1,7 +1,7 @@
 <?PHP
 session_start();
-import_request_variables("GPC","");
 include("includes/sessionimport.inc");
+import_request_variables("GPC","");
 
 if ($db_pwd=='') {
 	$bibledb = mysql_pconnect("$db_host","$db_user");

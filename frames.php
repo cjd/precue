@@ -5,11 +5,11 @@ session_start();
 <head>
 <title>Lyric Display System Frontend</title>
 </head>
-<frameset rows=200,* FRAMEBORDER=0 FRAMESPACING=0 BORDER=0>
-	<FRAME SRC=header.php NAME=header SCROLLING=no>
-	<frameset cols=200,* FRAMEBORDER=0 FRAMESPACING=0 BORDER=0>
-		<FRAME SRC=menu.php NAME=midline SCROLLING=auto>
-		<FRAME SRC=lds.php NAME=main SCROLLING=auto>
+<frameset rows="200,*" FRAMEBORDER="0" FRAMESPACING="0" BORDER="0">
+	<FRAME SRC="header.php" NAME="header" SCROLLING="no">
+	<frameset cols="200,*" FRAMEBORDER="0" FRAMESPACING="0" BORDER="0">
+		<FRAME SRC="menu.php" NAME="midline" SCROLLING="auto">
+		<FRAME SRC="lds.php" NAME="main" SCROLLING="auto">
 	</frameset>
 </frameset>
 </html>

@@ -1,7 +1,8 @@
 <?PHP
 session_start();
-import_request_variables("GPC","");
 include("includes/sessionimport.inc");
+import_request_variables("GPC","");
+
 if ($db_pwd=='') {
 	$db = mysql_pconnect("$db_host","$db_user");
 } else {
@@ -9,6 +10,7 @@ if ($db_pwd=='') {
 }
 mysql_select_db("lyricDb",$db);
 
+import_request_variables("gP","");
 
 $pagesarray = array($pagedata1,$pagedata2,$pagedata3,$pagedata4,$pagedata5,$pagedata6,$pagedata7,$pagedata8, $pagedata9,$pagedata10,$pagedata11, $pagedata12,$pagedata13,$pagedata14,$pagedata15, $pagedata16,$pagedata17,$pagedata18, $pagedata19,$pagedata20);
 ?>
@@ -89,9 +91,9 @@ welcome();
 
 		<BR><BR>
 		<B>Precue:</B><BR>
-		precue enables remote access to the lyrics and bible databases which Lyricue uses. It facilitates the modification of any Lyricue playlist, the viewing of available songs and the generation of song usage profiles. For security reasons, no provision for deleting songs is made in this version. Precue is implemented in as a group of PHP4 webpages suitable for use with any PHP enabled server.</B><BR><BR>
+		Lyricue enables remote access to the lyrics and bible databases which Lyricue uses. It facilitates the modification of any Lyricue playlist, the viewing of available songs and the generation of song usage profiles. For security reasons, no provision for deleting songs is made in this version. Precue is implemented in as a group of PHP4 webpages suitable for use with any PHP enabled server.</B><BR><BR>
 
-		Precue was written for Gosford City Baptist Church by Clint Turner.<BR>
+		Lyricue was written for Gosford City Baptist Church by Clint Turner.<BR>
 		Email: <A HREF=mailto:ldsf@clintturner.com>ldsf@clintturner.com</A>. 
 		
 

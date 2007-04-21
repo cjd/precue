@@ -31,6 +31,8 @@
 
 		if ($playmedia == "true") {
 			echo "<EMBED SRC=\"" . $media_path . $media[$songtoshow] . "\" LOOP=0>";
+
+			echo "<A HREF=\"" . $media_path . $media[$songtoshow] . "\">Download midi</A>";
 		}
 	}
 
