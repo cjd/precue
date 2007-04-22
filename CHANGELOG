@@ -56,3 +56,8 @@ Changes 0.6 -> 0.9 ---> (Public 1.0 pre-release 18/2/2005):
 * Supported for new config file locations
 * Available songs default to 'A%' title filter for slow links
 * Beginning of code cleanup (moved includes)
+
+WRV -- Changes 0.9 -> 1.0 ---> (23/04/2007)
+---------------------------------
+* Fix audit checking
+* Add more audit options
