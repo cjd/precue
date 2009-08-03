@@ -61,3 +61,7 @@ WRV -- Changes 0.9 -> 1.0 ---> (23/04/2007)
 ---------------------------------
 * Fix audit checking
 * Add more audit options
+
+WRV -- Changes 1.0 -> 1.1 ---> (03/08/2009)
+---------------------------------
+* Various fixes/additions from Mark Clearwater
