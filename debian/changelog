@@ -1,3 +1,9 @@
+precue (1.1) unstable; urgency=medium
+
+  * Bug fixes
+
+ -- Chris Debenham <chris@adebenham.com>  Mon, 03 Aug 2009 12:00:00 +1000
+
 precue (1.0) unstable; urgency=medium
 
   * Release 1.0
