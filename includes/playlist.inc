@@ -104,7 +104,7 @@
 			$result = mysql_query("select max(playorder) + 1 as next from playlist",$db);
 			$nextpo = mysql_fetch_array($result);
 			$nextpo = $nextpo[next];
-			mysql_query("insert into playlist values('$nextpo','$playlistId','$nextid','play')",$db);
+			mysql_query("insert into playlist values('$nextpo','$playlistId','$nextid','play','0')",$db);
 
 			# Insert page playlist items
 			#---------------------------

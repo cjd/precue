@@ -42,6 +42,9 @@ include("includes/advsearch.inc");
 //include the song adding function
 include("includes/addanewsong.inc");
 
+//include the song editing function
+include("includes/editasong.inc");
+
 //include the available songs function
 include("includes/availsong.inc");
 
@@ -58,6 +61,8 @@ switch ($action) {
 	case "about": about(); break;
 	case "showpl": playlist("show",$song,$playlistId); break;
 	case "pladdsong": playlist("addsong",$son,$playlistId); break;
+	case "pladdplaylist": addplaylist(); break;
+	case "plcreateplaylist": createplaylist(); break;
 	case "plclear": playlist("clear",$song,$playlistId); break;
 	case "plcommit": playlist("Add",$song,$playlistId); break;
 	case "Add to playlist": playlist("Add",$titlefield); break;
@@ -65,6 +70,14 @@ switch ($action) {
 	case "Search": availablesongs($sortingmech,$searchrad,$searchtext); break;
 	case "addsong":  addanewsong("addnew",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
 	case "Save the Song": addanewsong("",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
+//************************
+//added by Mark Clearwater
+//************************
+	case "editsong": editasong("edit",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
+	case "Save the Edited Song": editasong("",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
+//************************
+//end added
+//************************
 	case "images": images();
 	case "blank": break;
 	default: welcome();
@@ -98,6 +111,52 @@ welcome();
 		
 
 		<?PHP
+	}
+
+
+// ----------------------------------
+// addplaylist function
+// created by Mark Clearwater
+// mclearwater@gmail.com
+// ----------------------------------
+
+
+	function addplaylist() {
+
+		?>
+		<FONT SIZE=4><B>Adding a playlist:</B><BR>To add a playlist follow these steps:<BR> <p>Enter a title for your playlist into the text box below and press the create button.</p>
+
+		<form method="post" action="lds.php?action=plcreateplaylist">
+
+		Playlist Name: <input name="playlisttitle"><P>
+		<input type="submit" value="create">
+
+		</form>
+
+		<?PHP
+	}
+// ----------------------------------
+// createaddplaylist function
+// created by Mark Clearwater
+// modified from existing code
+// mclearwater@gmail.com
+// ----------------------------------
+
+
+	function createplaylist() {
+	global $db;
+      	# Insert main playlist a new playlist
+	#--------------------------
+
+	$result = mysql_query("select max(id) + 1 as next from playlists",$db);
+	$nextid = mysql_fetch_array($result);
+	$nextid = $nextid[next];
+	$playlist = mysql_escape_string($_POST['playlisttitle']);
+	mysql_query("insert into playlists values('$nextid', '$playlist','')",$db);
+
+	echo "The command to create a new playlist <I>\"$playlist\"</I> was successful.<BR>Click <A HREF=lds.php?action=showpl&playlistId=$nextid>here</A> to view the playlist.";
+
+
 	}
 
 

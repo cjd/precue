@@ -90,6 +90,7 @@
 		?>
 		<TABLE BORDER=2>
 			<TR>
+				<TD WIDTH=10% ALIGN=CENTER><B>Edit Song:</B></TD>
 				<TD WIDTH=40%><B>Title:</B></TD>
 				<TD WIDTH=10%><B>Media:</B></TD>
 				<TD WIDTH=10% ALIGN=CENTER><B>Add to PL:</B></TD>
@@ -99,8 +100,9 @@
 		<?PHP
 		if ($result !="") {
 			while ($thisrow = mysql_fetch_array($result)) {
+			      	echo "<TR><TD ALIGN=CENTER><A HREF=lds.php?action=editsong&song=$thisrow[id]>X</A></TD>";
 
-				echo "<TR><TD><A HREF=lds.php?action=showsong&song=$thisrow[id]>";
+				echo "<TD><A HREF=lds.php?action=showsong&song=$thisrow[id]>";
 				echo "$thisrow[title]</A></TD>";
 
 				if ($media[$thisrow[id]] != "") {

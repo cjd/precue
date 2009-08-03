@@ -56,8 +56,17 @@ import_request_variables("GPC","");
 	function plmanage() {
 		?>
 		<LI><A HREF="lds.php?action=showpl">Display the playlist</A></LI><BR>
+		<?PHP
+		//****************************
+		// added by Mark Clearwater
+		// mclearwater@gmail.com
+		//****************************
+		?>
+		<LI><A HREF="lds.php?action=pladdplaylist">Add a playlist</A></LI><BR>
+		<?PHP //end added ?>
 		<LI><A HREF="lds.php?action=pladdsong">Add a song to playlist</A></LI><BR>
 		<LI><A HREF="lds.php?action=plclear">Clear the playlist</A></LI>
+		
 		<?PHP
 	}
 	
