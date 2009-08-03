@@ -100,7 +100,7 @@ welcome();
 
 		Lyricue was written for Gosford City Baptist Church by Chris Debenham.<BR>
 		Email: <A HREF=mailto:chris@adebenham.com>chris@adebenham.com</A>. 
-		WWW: <A HREF=http://www.adebenham.com/lyricue>Lyricue website</A>
+		WWW: <A HREF=http://www.lyricue.org/>Lyricue website</A>
 
 		<BR><BR>
 		<B>Precue:</B><BR>
