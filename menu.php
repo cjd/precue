@@ -18,7 +18,7 @@ import_request_variables("GPC","");
     } else if ($mode == "" ){
 	} else {
 		?><SCRIPT LANGUAGE="javascript"><!--
-			parent.main.location.href = "lds.php?action=blank";
+			parent.main.location.href = "lyricue.php?action=blank";
 		//--></SCRIPT><?PHP
 	}
 
@@ -30,17 +30,17 @@ import_request_variables("GPC","");
 		case "playlist": plmanage(); break;
 		case "images": mediamanage(); break;
 		case "audit": echo "<LI><A HREF=audit.php>View audit reports</A></LI>"; break;
-		case "about": echo "<LI><A HREF=lds.php?action=about>View Lyricue/Precue details</A></LI>"; break;
+		case "about": echo "<LI><A HREF=lyricue.php?action=about>View Lyricue/Precue details</A></LI>"; break;
 	}
 	
 	echo "</UL>";
 	
 	function songmanage() {
 		?>
-		<LI><A HREF="lds.php?action=showavail&letter=A">Show available songs</A></LI><BR>
-		<LI><A HREF="lds.php?action=advsearch">Search by Lyrics</A></LI><BR>
-		<LI><A HREF="lds.php?action=addsong">Add a new song</A></LI><BR>
-		<LI><A HREF="lds.php?action=pflist" TARGET="_new">Printer friendly list (new window)</A>
+		<LI><A HREF="lyricue.php?action=showavail&letter=A">Show available songs</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=advsearch">Search by Lyrics</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=addsong">Add a new song</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=pflist" TARGET="_new">Printer friendly list (new window)</A>
 
 		<?PHP
 	}
@@ -55,17 +55,17 @@ import_request_variables("GPC","");
 
 	function plmanage() {
 		?>
-		<LI><A HREF="lds.php?action=showpl">Display the playlist</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=showpl">Display the playlist</A></LI><BR>
 		<?PHP
 		//****************************
 		// added by Mark Clearwater
 		// mclearwater@gmail.com
 		//****************************
 		?>
-		<LI><A HREF="lds.php?action=pladdplaylist">Add a playlist</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=pladdplaylist">Add a playlist</A></LI><BR>
 		<?PHP //end added ?>
-		<LI><A HREF="lds.php?action=pladdsong">Add a song to playlist</A></LI><BR>
-		<LI><A HREF="lds.php?action=plclear">Clear the playlist</A></LI>
+		<LI><A HREF="lyricue.php?action=pladdsong">Add a song to playlist</A></LI><BR>
+		<LI><A HREF="lyricue.php?action=plclear">Clear the playlist</A></LI>
 		
 		<?PHP
 	}
@@ -82,7 +82,7 @@ import_request_variables("GPC","");
 		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img' ORDER BY Category";
 		$results = mysql_query($query,$mediadb);
 		while ($row = mysql_fetch_row($results)) {
-			echo "<LI><A HREF=\"lds.php?action=images&mode=catselect&category=$row[0]\">$row[0]</A></LI><BR>";
+			echo "<LI><A HREF=\"lyricue.php?action=images&mode=catselect&category=$row[0]\">$row[0]</A></LI><BR>";
 		}
 	
 	}

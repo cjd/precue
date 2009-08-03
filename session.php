@@ -2,7 +2,7 @@
 //begin session and register general use variables
 session_start();
 session_register(fver);
-session_register(ldsver);
+session_register(lyricuever);
 session_register(bgcolor);
 session_register(linkcolor);
 session_register(vlinkcolor);
@@ -32,8 +32,8 @@ include("media.inc");
 //##########
 
 //set the general use variables
-$fver="0.9";
-$ldsver="2.0";
+$fver="1.1";
+$lyricuever="2.0";
 $bgcolor="#DDDDFF";
 $linkcolor="#0000FF";
 $vlinkcolor="#0000FF";

@@ -43,9 +43,9 @@
 			$titleresult = mysql_query("SELECT id, title, artist FROM lyricMain WHERE id=$sid[songid]", $db);
 			$titlefound = mysql_fetch_array($titleresult);
 
-			 echo "<TR><TD><A HREF=lds.php?action=showsong&song=$titlefound[id]>";
+			 echo "<TR><TD><A HREF=lyricue.php?action=showsong&song=$titlefound[id]>";
 			 echo "$titlefound[title]</A></TD>";
-			 echo "<TD><A HREF=lds.php?action=plcommit&song=$titlefound[id]>X</A>";
+			 echo "<TD><A HREF=lyricue.php?action=plcommit&song=$titlefound[id]>X</A>";
 			 echo "</TD><TD>$titlefound[artist]</TD></TR>\n";
 
 

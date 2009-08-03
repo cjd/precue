@@ -1,4 +1,4 @@
-This is the changelog for LDSF. Version numbers are used for both internal and external releases with those releases which were made to the general public being marked with "WRV".
+This is the changelog for Precue. Version numbers are used for both internal and external releases with those releases which were made to the general public being marked with "WRV".
 
 Developer names:
 ----------------
@@ -65,3 +65,7 @@ WRV -- Changes 0.9 -> 1.0 ---> (23/04/2007)
 WRV -- Changes 1.0 -> 1.1 ---> (03/08/2009)
 ---------------------------------
 * Various fixes/additions from Mark Clearwater
+
+WRV -- Changes 1.1 -> 1.2 ---> 
+---------------------------------
+* Migrate LDS->lyricue and LDSF->precue finally

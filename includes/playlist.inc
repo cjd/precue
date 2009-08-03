@@ -13,7 +13,7 @@
 			echo "<FONT SIZE=3><I>Note: Clearing does not delete the playlist but only the items within it. For now this only clears basic playlists (2 level lists).</I><BR><BR>";
 			$result = mysql_query("SELECT * FROM playlists WHERE ref=''", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lds.php?action=plclear&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
+				echo "<A HREF=lyricue.php?action=plclear&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
 			}
 		} else {
 			//get playlist ids for the items in this playlist
@@ -42,7 +42,7 @@
 			echo "<B>Please select the playlist you wish to display:<BR>";
 			$result = mysql_query("SELECT * FROM playlists WHERE ref=''",$db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lds.php?action=showpl&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
+				echo "<A HREF=lyricue.php?action=showpl&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
 			}
 		} else {
 		
@@ -84,7 +84,7 @@
 			echo "<B>Please select the playlist you wish to add the song to:<BR>";
 			$result = mysql_query("SELECT * FROM playlists WHERE ref=''",$db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lds.php?action=plcommit&playlistId=$thisrow[id]&song=$song>$thisrow[title]</A><BR>";	
+				echo "<A HREF=lyricue.php?action=plcommit&playlistId=$thisrow[id]&song=$song>$thisrow[title]</A><BR>";	
 			}
 		} else {
 			$result = mysql_query("select title from lyricMain where id=$song",$db);
@@ -124,7 +124,7 @@
 
 			mysql_query("insert into audit values(0,$song,NOW())",$db);
 
-			echo "The command to insert the song <I>\"$title[title]\"</I> into the playlist was successful.<BR>Click <A HREF=lds.php?action=showpl&playlistId=$playlistId>here</A> to view the playlist.";
+			echo "The command to insert the song <I>\"$title[title]\"</I> into the playlist was successful.<BR>Click <A HREF=lyricue.php?action=showpl&playlistId=$playlistId>here</A> to view the playlist.";
 		}
 	}
 

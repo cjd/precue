@@ -13,7 +13,7 @@ session_unregister(biblesdata);
 ?>
 
 <HEAD>
-	<TITLE>Lyric Display System Frontend <?PHP echo "$fver for LDS $ldsver"; ?></TITLE>
+	<TITLE>Precue - <?PHP echo "$fver for Lyricue $lyricuever"; ?></TITLE>
 </HEAD>
 
 
@@ -142,11 +142,11 @@ global $mode, $bibledb, $bible, $biblename;
 	function unknown($action,$mode) {
 	global $action, $mode;
 		?>
-			<CENTER><B>The LDSF bible function failed!</B><BR>Please try again.<BR><BR>
+			<CENTER><B>The Precue bible function failed!</B><BR>Please try again.<BR><BR>
 
 		<?PHP
 
-		echo "The exact error was:<BR> LDSF failed to run a bible function using the action ";
+		echo "The exact error was:<BR> Precue failed to run a bible function using the action ";
 		echo "<I>$action</I> and the mode <I>$mode</I>.</CENTER>";
 	}
 		

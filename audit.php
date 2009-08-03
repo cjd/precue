@@ -100,7 +100,7 @@ if ($action == "process") {
 				echo "\n<TR><TD>$rank</TD>";
 				echo "\n\t<TD ALIGN=CENTER>$thisrow[count]</TD>";
 				echo "\n<TD>$thisrow[songid]</TD>";
-				echo "\n<TD><A HREF=lds.php?action=showsong&song=$thisrow[songid]>";
+				echo "\n<TD><A HREF=lyricue.php?action=showsong&song=$thisrow[songid]>";
 				echo "$title[title]</A></TD>";
 				echo "<TD><A HREF=audit.php?action=when&song=$thisrow[songid]>X</A>";
 				echo "</TD></TR>\n";

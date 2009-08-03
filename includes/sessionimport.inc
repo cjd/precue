@@ -5,7 +5,7 @@
 //much safer than using register_globals
 //because we know the source.
 $fver = $_SESSION['fver'];
-$ldsver = $_SESSION['ldsver'];
+$lyricuever = $_SESSION['lyricuever'];
 $bgcolor = $_SESSION['bgcolor'];
 $linkcolor = $_SESSION['linkcolor'];
 $vlinkcolor = $_SESSION['vlinkcolor'];

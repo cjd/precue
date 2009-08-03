@@ -23,7 +23,7 @@
 
 			elseif ($nopages > 20) {
 
-				echo "LDSF limits the number of pages to 20! Please try again.";?><BR>
+				echo "Precue limits the number of pages to 20! Please try again.";?><BR>
 				<FORM NAME="advsearch" ACTION="<?PHP echo $PHP_SELF; ?>" METHOD="POST">
 				<INPUT TYPE="text" SIZE="5" NAME="nopages">
 				<INPUT TYPE="submit" NAME="addsong" VALUE="Add a new song"></FORM><?PHP
