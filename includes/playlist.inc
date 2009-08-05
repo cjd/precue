@@ -11,7 +11,7 @@
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to clear:</B><BR>";
 			echo "<FONT SIZE=3><I>Note: Clearing does not delete the playlist but only the items within it. For now this only clears basic playlists (2 level lists).</I><BR><BR>";
-			$result = mysql_query("SELECT * FROM playlists WHERE ref=''", $db);
+			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
 				echo "<A HREF=lyricue.php?action=plclear&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
 			}
@@ -40,7 +40,7 @@
 	//-----------------Show the Playlist------------------------------
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to display:<BR>";
-			$result = mysql_query("SELECT * FROM playlists WHERE ref=''",$db);
+			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
 				echo "<A HREF=lyricue.php?action=showpl&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
 			}
@@ -82,7 +82,7 @@
 
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to add the song to:<BR>";
-			$result = mysql_query("SELECT * FROM playlists WHERE ref=''",$db);
+			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
 				echo "<A HREF=lyricue.php?action=plcommit&playlistId=$thisrow[id]&song=$song>$thisrow[title]</A><BR>";	
 			}
@@ -96,7 +96,9 @@
 			$result = mysql_query("select max(id) + 1 as next from playlists",$db);
 			$nextid = mysql_fetch_array($result);
 			$nextid = $nextid[next];
-			mysql_query("insert into playlists values('$nextid', '$title[title]','$song')",$db);
+            $title[title] = mysql_real_escape_string($title[title]);
+			mysql_query("insert into playlists (id, title, ref) values('$nextid', '$title[title]','$song')",$db);
+            echo "insert into playlists (id, title, ref) values('$nextid', '$title[title]','$song')<br>";
 
 			# Insert link to parent
 			#----------------------
@@ -104,25 +106,28 @@
 			$result = mysql_query("select max(playorder) + 1 as next from playlist",$db);
 			$nextpo = mysql_fetch_array($result);
 			$nextpo = $nextpo[next];
-			mysql_query("insert into playlist values('$nextpo','$playlistId','$nextid','play','0')",$db);
+			mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')",$db);
+            echo "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')<br>";
 
 			# Insert page playlist items
 			#---------------------------
 
 			$result = mysql_query("select pageid from page where songid=$song order by pagenum asc", $db);
+            echo "Adding pages to $song <br>";
 
 			while ($thisrow = mysql_fetch_array($result)) {
 				$poresult = mysql_query("select max(playorder) + 1 as next from playlist",$db);
 				$nextpo = mysql_fetch_array($poresult);
 				$nextpo = $nextpo[next];
+                echo "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','$thisrow[pageid]','song', '0')<br>";
 
-				mysql_query("insert into playlist values('$nextpo','$nextid','$thisrow[pageid]','song')",$db);
+				mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','$thisrow[pageid]','song', 0)",$db);
 			}
 
 			# Audit this addition
 			#--------------------
 
-			mysql_query("insert into audit values(0,$song,NOW())",$db);
+			mysql_query("insert into audit (id, songid, playdate) values(0,$song,NOW())",$db);
 
 			echo "The command to insert the song <I>\"$title[title]\"</I> into the playlist was successful.<BR>Click <A HREF=lyricue.php?action=showpl&playlistId=$playlistId>here</A> to view the playlist.";
 		}

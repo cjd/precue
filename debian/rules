@@ -65,5 +65,5 @@ binary-indep: build install
 binary-arch: build install
 # We have nothing to do by default.
 
-binary: binary-indep binary-arch
+binary: binary-indep
 .PHONY: build clean binary-indep binary-arch binary install

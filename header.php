@@ -42,7 +42,7 @@ td:hover {
 <BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor; ?> TEXT=<?PHP echo $textcolor; ?>>
 
 	<CENTER>
-	<IMG SRC="images/precue.png" BORDER="0" WIDTH="601" HEIGHT="161" onclick="parent.main.location='lyricue.php?action=welcome'"><BR>
+	<IMG SRC="images/precue.png" BORDER="0" WIDTH="568" HEIGHT="151" onclick="parent.main.location='lyricue.php?action=welcome'"><BR>
     <FONT SIZE=3" COLOR="red">
     <TABLE WIDTH="601" BORDER=1>
     <TR>
