@@ -48,9 +48,9 @@
 		
 	?>
 
-	<TABLE BORDER=1>
+	<TABLE class="songlist">
 
-	<TR><TD WIDTH="75%"><B>Title</B></TD><TD WIDTH="25%"><B>Artist</B></TD></TR>
+	<TR class="header"><TD WIDTH="75%"><B>Title</B></TD><TD WIDTH="25%"><B>Artist</B></TD></TR>
 
 	<?PHP
 
@@ -68,7 +68,7 @@
 		while ($currentsong = mysql_fetch_array($plresult1)) {
 
 	
-		echo "\t<TR><TD><A HREF=$PHP_SELF?action=showsong&song=$currentsong[id]>$currentsong[title]</A></TD><TD>$currentsong[artist]</TD></TR>\n";
+		echo "\t<TR><TD class=\"title\"><A HREF=$PHP_SELF?action=showsong&song=$currentsong[id]>$currentsong[title]</A></TD><TD class=\"artist\">$currentsong[artist]</TD></TR>\n";
 
 
 		}
@@ -98,7 +98,6 @@
 			$nextid = $nextid[next];
             $title[title] = mysql_real_escape_string($title[title]);
 			mysql_query("insert into playlists (id, title, ref) values('$nextid', '$title[title]','$song')",$db);
-            echo "insert into playlists (id, title, ref) values('$nextid', '$title[title]','$song')<br>";
 
 			# Insert link to parent
 			#----------------------
@@ -107,19 +106,16 @@
 			$nextpo = mysql_fetch_array($result);
 			$nextpo = $nextpo[next];
 			mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')",$db);
-            echo "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')<br>";
 
 			# Insert page playlist items
 			#---------------------------
 
 			$result = mysql_query("select pageid from page where songid=$song order by pagenum asc", $db);
-            echo "Adding pages to $song <br>";
 
 			while ($thisrow = mysql_fetch_array($result)) {
 				$poresult = mysql_query("select max(playorder) + 1 as next from playlist",$db);
 				$nextpo = mysql_fetch_array($poresult);
 				$nextpo = $nextpo[next];
-                echo "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','$thisrow[pageid]','song', '0')<br>";
 
 				mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','$thisrow[pageid]','song', 0)",$db);
 			}

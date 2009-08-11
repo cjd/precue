@@ -6,11 +6,6 @@
 //because we know the source.
 $fver = $_SESSION['fver'];
 $lyricuever = $_SESSION['lyricuever'];
-$bgcolor = $_SESSION['bgcolor'];
-$linkcolor = $_SESSION['linkcolor'];
-$vlinkcolor = $_SESSION['vlinkcolor'];
-$textcolor = $_SESSION['textcolor'];
-$bgimage = $_SESSION['bgimage'];
 $bible = $_SESSION['bible'];
 $biblename = $_SESSION['biblename'];
 $db_user = $_SESSION['db_user'];

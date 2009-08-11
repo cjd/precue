@@ -10,7 +10,15 @@ if ($db_pwd=='') {
 }
 mysql_select_db("lyricDb",$db);
 
-echo "<BODY BGCOLOR=$bgcolor BACKGROUND=$bgimage LINK=$linkcolor VLINK=$vlinkcolor TEXT=$textcolor LINK=000000 ALINK=000000 VLINK=000000>";
+?>
+
+<head>
+<link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
+</head>
+
+<BODY>
+
+<?PHP
 
 if ($action == "process") {
 	$title = strtolower($format);

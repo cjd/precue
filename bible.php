@@ -3,21 +3,25 @@ session_start();
 include("includes/sessionimport.inc");
 import_request_variables("GPC","");
 
-if ($db_pwd=='') {
-	$bibledb = mysql_pconnect("$db_host","$db_user");
-} else {
-	$bibledb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+list ($bible_type,$bible_name) = split(";", $bible);
+if (strcmp($bible_type, "db") == 0) {
+    if ($db_pwd=='') {
+	    $bibledb = mysql_pconnect("$db_host","$db_user");
+    } else {
+	    $bibledb = mysql_pconnect("$db_host","$db_user","$db_pwd");
+    }
+    mysql_select_db("$bible_name",$bibledb);
 }
-mysql_select_db("$bible",$bibledb);
 session_unregister(biblesdata);
 ?>
 
 <HEAD>
 	<TITLE>Precue - <?PHP echo "$fver for Lyricue $lyricuever"; ?></TITLE>
+    <link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
 </HEAD>
 
 
-<BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor; ?> TEXT=<?PHP echo $textcolor; ?> >
+<BODY>
 
 <?PHP
 
@@ -28,16 +32,18 @@ switch ($action) {
 }
 
 function displayfunctions($book,$chapter,$start,$end) {
-global $bibledb, $mode, $biblename;
+global $bibledb, $mode, $biblename, $bible_type;
 	if ($mode == "selectbook") {
-		$results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
-
 		echo "<FORM NAME=display ACTION=bible.php?action=disp&mode=selectchapter METHOD=POST>";
 		echo "Please select the Book:<BR> <SELECT NAME=book>";
+        if ($bible_type == "db") {
+		$results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
+
 
 		while ($current = mysql_fetch_row($results)) {
 			echo "<OPTION>$current[0]</OPTION>\n";
 		}
+        }
 		echo "</SELECT><INPUT TYPE=submit NAME=submit VALUE=Select></FORM>";
 	}
 	else if ($mode =="selectchapter") {
@@ -102,35 +108,42 @@ global $bibledb, $mode, $biblename;
 
 function changefunctions($newdb,$newbible) {
 global $mode, $bibledb, $bible, $biblename;
+global $db, $db_pass, $db_host, $db_user;
 	if ($mode == "select") {
 		echo "<B>Please select the new bible database to use:</B><BR>";
+        if ($db_pwd=='') {
+                $db = mysql_pconnect("$db_host","$db_user");
+        } else {
+                $db = mysql_pconnect("$db_host","$db_user","$db_pwd");
+        }
 
-		$fd = fopen("/etc/lyricue/default.conf","r");
-		 
-		if (!$fd) {
-		 	echo "<BR>Config file not found!";
-		} else {
-			while(!feof($fd)) {
-				$line = fgets($fd, 4096);
+        $db_list = mysql_list_dbs($db);
+        while ($row = mysql_fetch_object($db_list)) {
+            $query = "SELECT * FROM verse WHERE book=\"Bible\";";
+            $dbname = $row->Database;
+            mysql_select_db($dbname);
+            $result = mysql_query($query, $db);
+            if ($result) {
+                $row = mysql_fetch_assoc($result);
+                $title=$row['verse'];
+			    echo "<A HREF=\"bible.php?action=change&mode=commit&newdb=db;$dbname&newbible=$title\">$title</A><BR>";
+            }
+        }
 
-				if (substr($line, 0, 5) == "Bible") {
-					$line = substr($line, 6);
-					$poseq = strpos($line,"=") + 1;
-					$possem = strpos($line,";");
-					$bname = substr($line,$poseq,$possem -1);
-					$bname = ereg_replace("_","",$bname);
-					$bdb = substr($line,$possem + 1);
 
-					echo "<A HREF=\"bible.php?action=change&mode=commit&newdb=$bdb&newbible=$bname\">";
-					echo "$bname</A><BR>";
-				}
-			}
-		fclose($fd);
-		}
+        $command = "HOME=/var/www diatheke -b system -k modulelist";
+        $output = shell_exec($command);
+        foreach (split("\n",$output) as $row) {
+            list ($sword, $title) = split(" : ", $row);
+            if (!is_null($title)) {
+			    echo "<A HREF=\"bible.php?action=change&mode=commit&newdb=sword;$sword&newbible=$title\">$title</A><BR>";
+            }
+        }
 
 	} else if ($mode =="commit") {
 		$bible = $newdb;
-		$biblename = $newbible;
+        $_SESSION['bible'] = $newdb;
+		$_SESSION['biblename'] = $newbible;
 		echo "Bible database changed to $newbible.<BR>";
 	}
 }

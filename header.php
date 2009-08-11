@@ -21,37 +21,23 @@ mysql_select_db("lyricDb",$db);
 	//-->
 	</SCRIPT>
 
-<style>
-td {
-    text-align: center;
-    background-color: #FFFFFF;
-    border-color: #ff0000;
-    color: #ff0000;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-}
+<link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
 
-td:hover {
-    background-color: #8080FF;
-}
-
-</style> 
 </HEAD>
 
-<BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor; ?> TEXT=<?PHP echo $textcolor; ?>>
+<BODY>
 
 	<CENTER>
-	<IMG SRC="images/precue.png" BORDER="0" WIDTH="568" HEIGHT="151" onclick="parent.main.location='lyricue.php?action=welcome'"><BR>
+	<IMG SRC="images/precue.png" BORDER="0" WIDTH="500" HEIGHT="133" onclick="parent.main.location='lyricue.php?action=welcome'"><BR>
     <FONT SIZE=3" COLOR="red">
-    <TABLE WIDTH="601" BORDER=1>
+    <TABLE class="menu">
     <TR>
-    <TD onclick="parent.midline.location.href='menu.php?mode=song'">Songs</TD>
-    <TD onclick="parent.midline.location.href='menu.php?mode=verse'">Verse</TD>
-    <TD onclick="parent.midline.location.href='menu.php?mode=playlist'">Playlist</TD>
-    <TD onclick="parent.midline.location.href='menu.php?mode=images'">Images</TD>
-    <TD onclick="parent.midline.location.href='menu.php?mode=direct&url=audit.php'">Audit Reports</TD>
-    <TD onclick="parent.midline.location.href='menu.php?mode=direct&url=lyricue.php?action=about'">About Precue</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=song'">Songs</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=verse'">Verse</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=playlist'">Playlist</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=images'">Images</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=direct&url=audit.php'">Audit Reports</TD>
+    <TD class="menuitem" onclick="parent.midline.location.href='menu.php?mode=direct&url=lyricue.php?action=about'">About Precue</TD>
     </TR>
     </TABLE>
     </FONT>

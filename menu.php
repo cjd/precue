@@ -7,8 +7,10 @@ import_request_variables("GPC","");
 <HEAD>
 	<BASE TARGET="main">
 
+<link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
+
 </HEAD>
-<BODY BGCOLOR=<?PHP echo $bgcolor; ?> BACKGROUND=<?PHP echo $bgimage; ?> LINK=<?PHP echo $linkcolor; ?> VLINK=<?PHP echo $vlinkcolor;?>>
+<BODY>
 <CENTER>
 <?PHP
 	if ($mode == "direct") {
@@ -37,10 +39,17 @@ import_request_variables("GPC","");
 	
 	function songmanage() {
 		?>
-		<LI><A HREF="lyricue.php?action=showavail&letter=A">Show available songs</A></LI><BR>
-		<LI><A HREF="lyricue.php?action=advsearch">Search by Lyrics</A></LI><BR>
-		<LI><A HREF="lyricue.php?action=addsong">Add a new song</A></LI><BR>
-		<LI><A HREF="lyricue.php?action=pflist" TARGET="_new">Printer friendly list (new window)</A>
+        <table class="menu">
+        <tr>
+        <td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=showavail&letter=A'">Show available songs</td>
+        </tr><tr>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=advsearch'">Search by Lyrics</td>
+        </tr><tr>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=addsong'">Add a new song</td>
+        </tr><tr>
+		<td class="menuitem" onclick="window.open('lyricue.php?action=pflist')">Printer friendly list (new window)</td>
+        </tr>
+        </table>
 
 		<?PHP
 	}
@@ -48,24 +57,36 @@ import_request_variables("GPC","");
 
 	function versemanage() {
 		?>
-		<LI><A HREF="bible.php?action=disp&mode=selectbook">Display a range of verses</A></LI><BR>
-		<LI><A HREF="bible.php?action=change&mode=select">Change bible database</A></LI>
+        <table class="menu">
+        <tr>
+        <td class="menuitem" onclick="parent.main.location.href='bible.php?action=disp&mode=selectbook'">Display a range of verses</td>
+        </tr><tr>
+		<td class="menuitem" onclick="parent.main.location.href='bible.php?action=change&mode=select'">Change bible database</td>
+        </tr>
+        </table>
 		<?PHP
 	}
 
 	function plmanage() {
 		?>
-		<LI><A HREF="lyricue.php?action=showpl">Display the playlist</A></LI><BR>
+        <table class="menu">
+        <tr>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=showpl'">Display the playlist</td>
+        </tr><tr>
 		<?PHP
 		//****************************
 		// added by Mark Clearwater
 		// mclearwater@gmail.com
 		//****************************
 		?>
-		<LI><A HREF="lyricue.php?action=pladdplaylist">Add a playlist</A></LI><BR>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=pladdplaylist'">Add a playlist</td
 		<?PHP //end added ?>
-		<LI><A HREF="lyricue.php?action=pladdsong">Add a song to playlist</A></LI><BR>
-		<LI><A HREF="lyricue.php?action=plclear">Clear the playlist</A></LI>
+        </tr><tr>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=pladdsong'">Add a song to playlist</td>
+        </tr><tr>
+		<td class="menuitem" onclick="parent.main.location.href='lyricue.php?action=plclear'">Clear the playlist</td>
+        </tr>
+        </table>
 		
 		<?PHP
 	}
@@ -81,9 +102,11 @@ import_request_variables("GPC","");
 	
 		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img' ORDER BY Category";
 		$results = mysql_query($query,$mediadb);
+        echo "<table class=\"menu\">";
 		while ($row = mysql_fetch_row($results)) {
-			echo "<LI><A HREF=\"lyricue.php?action=images&mode=catselect&category=$row[0]\">$row[0]</A></LI><BR>";
+		    echo "<tr><td class=\"menuitem\" onclick=\"parent.main.location.href='lyricue.php?action=images&mode=catselect&category=$row[0]'\">$row[0]</td></tr>";
 		}
+        echo "</table>";
 	
 	}
 ?>

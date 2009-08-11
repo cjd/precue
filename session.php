@@ -3,11 +3,6 @@
 session_start();
 session_register(fver);
 session_register(lyricuever);
-session_register(bgcolor);
-session_register(linkcolor);
-session_register(vlinkcolor);
-session_register(textcolor);
-session_register(bgimage);
 session_register(bible);
 session_register(biblename);
 session_register(db_host);
@@ -32,12 +27,8 @@ include("media.inc");
 //##########
 
 //set the general use variables
-$fver="1.1";
+$fver="1.3";
 $lyricuever="2.0";
-$bgcolor="#DDDDFF";
-$linkcolor="#0000FF";
-$vlinkcolor="#0000FF";
-$textcolor="#000000";
 $bgimage = "images/bgtile.jpg";
 $bible = "bibleDb";
 $biblename = "King James Version (Default)";

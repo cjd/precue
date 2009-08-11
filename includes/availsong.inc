@@ -9,33 +9,64 @@
 	<CENTER>
 	<FORM NAME="search" ACTION="lyricue.php?letter=<? echo $letter; ?>" METHOD="POST">
 
-	<A HREF="lyricue.php?action=showavail&letter=ALL<? echo "&sortingmech=$sortingmech"; ?>">All</A>|
-	<A HREF="lyricue.php?action=showavail&letter=A<? echo "&sortingmech=$sortingmech"; ?>">A</A>|
-	<A HREF="lyricue.php?action=showavail&letter=B<? echo "&sortingmech=$sortingmech"; ?>">B</A>|
-	<A HREF="lyricue.php?action=showavail&letter=C<? echo "&sortingmech=$sortingmech"; ?>">C</A>|
-	<A HREF="lyricue.php?action=showavail&letter=D<? echo "&sortingmech=$sortingmech"; ?>">D</A>|
-	<A HREF="lyricue.php?action=showavail&letter=E<? echo "&sortingmech=$sortingmech"; ?>">E</A>|
-	<A HREF="lyricue.php?action=showavail&letter=F<? echo "&sortingmech=$sortingmech"; ?>">F</A>|
-	<A HREF="lyricue.php?action=showavail&letter=G<? echo "&sortingmech=$sortingmech"; ?>">G</A>|
-	<A HREF="lyricue.php?action=showavail&letter=H<? echo "&sortingmech=$sortingmech"; ?>">H</A>|
-	<A HREF="lyricue.php?action=showavail&letter=I<? echo "&sortingmech=$sortingmech"; ?>">I</A>|
-	<A HREF="lyricue.php?action=showavail&letter=J<? echo "&sortingmech=$sortingmech"; ?>">J</A>|
-	<A HREF="lyricue.php?action=showavail&letter=K<? echo "&sortingmech=$sortingmech"; ?>">K</A>|
-	<A HREF="lyricue.php?action=showavail&letter=L<? echo "&sortingmech=$sortingmech"; ?>">L</A>|
-	<A HREF="lyricue.php?action=showavail&letter=M<? echo "&sortingmech=$sortingmech"; ?>">M</A>|
-	<A HREF="lyricue.php?action=showavail&letter=N<? echo "&sortingmech=$sortingmech"; ?>">N</A>|
-	<A HREF="lyricue.php?action=showavail&letter=O<? echo "&sortingmech=$sortingmech"; ?>">O</A>|
-	<A HREF="lyricue.php?action=showavail&letter=P<? echo "&sortingmech=$sortingmech"; ?>">P</A>|
-	<A HREF="lyricue.php?action=showavail&letter=Q<? echo "&sortingmech=$sortingmech"; ?>">Q</A>|
-	<A HREF="lyricue.php?action=showavail&letter=R<? echo "&sortingmech=$sortingmech"; ?>">R</A>|
-	<A HREF="lyricue.php?action=showavail&letter=S<? echo "&sortingmech=$sortingmech"; ?>">S</A>|
-	<A HREF="lyricue.php?action=showavail&letter=T<? echo "&sortingmech=$sortingmech"; ?>">T</A>|
-	<A HREF="lyricue.php?action=showavail&letter=U<? echo "&sortingmech=$sortingmech"; ?>">U</A>|
-	<A HREF="lyricue.php?action=showavail&letter=V<? echo "&sortingmech=$sortingmech"; ?>">V</A>|
-	<A HREF="lyricue.php?action=showavail&letter=W<? echo "&sortingmech=$sortingmech"; ?>">W</A>|
-	<A HREF="lyricue.php?action=showavail&letter=X<? echo "&sortingmech=$sortingmech"; ?>">X</A>|
-	<A HREF="lyricue.php?action=showavail&letter=Y<? echo "&sortingmech=$sortingmech"; ?>">Y</A>|
-	<A HREF="lyricue.php?action=showavail&letter=Z<? echo "&sortingmech=$sortingmech"; ?>">Z</A>
+    <table>
+    <tr><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=ALL<? echo "&sortingmech=$sortingmech"; ?>">All</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=A<? echo "&sortingmech=$sortingmech"; ?>">A</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=B<? echo "&sortingmech=$sortingmech"; ?>">B</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=C<? echo "&sortingmech=$sortingmech"; ?>">C</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=D<? echo "&sortingmech=$sortingmech"; ?>">D</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=E<? echo "&sortingmech=$sortingmech"; ?>">E</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=F<? echo "&sortingmech=$sortingmech"; ?>">F</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=G<? echo "&sortingmech=$sortingmech"; ?>">G</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=H<? echo "&sortingmech=$sortingmech"; ?>">H</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=I<? echo "&sortingmech=$sortingmech"; ?>">I</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=J<? echo "&sortingmech=$sortingmech"; ?>">J</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=K<? echo "&sortingmech=$sortingmech"; ?>">K</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=L<? echo "&sortingmech=$sortingmech"; ?>">L</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=M<? echo "&sortingmech=$sortingmech"; ?>">M</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=N<? echo "&sortingmech=$sortingmech"; ?>">N</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=O<? echo "&sortingmech=$sortingmech"; ?>">O</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=P<? echo "&sortingmech=$sortingmech"; ?>">P</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Q<? echo "&sortingmech=$sortingmech"; ?>">Q</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=R<? echo "&sortingmech=$sortingmech"; ?>">R</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=S<? echo "&sortingmech=$sortingmech"; ?>">S</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=T<? echo "&sortingmech=$sortingmech"; ?>">T</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=U<? echo "&sortingmech=$sortingmech"; ?>">U</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=V<? echo "&sortingmech=$sortingmech"; ?>">V</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=W<? echo "&sortingmech=$sortingmech"; ?>">W</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=X<? echo "&sortingmech=$sortingmech"; ?>">X</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Y<? echo "&sortingmech=$sortingmech"; ?>">Y</A>
+    </td><td class="menuitem">
+	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Z<? echo "&sortingmech=$sortingmech"; ?>">Z</A>
+    </td>
+    </tr>
+</table>
 
 	<BR><BR>
 	
@@ -60,7 +91,7 @@
 <?PHP
 		
 		if ($letter && $letter != "ALL") {
-			echo "<FONT SIZE=4 FACE=Arial>Songs with first letter in title being '$letter'</FONT><BR>";
+			echo "<H2>Songs with first letter in title being '$letter'</h2>";
 		}	
 		
 		if ($sortingmech == "") $sortingmech = "title";
@@ -88,34 +119,26 @@
 
 
 		?>
-		<TABLE BORDER=2>
-			<TR>
-				<TD WIDTH=10% ALIGN=CENTER><B>Edit Song:</B></TD>
-				<TD WIDTH=40%><B>Title:</B></TD>
-				<TD WIDTH=10%><B>Media:</B></TD>
-				<TD WIDTH=10% ALIGN=CENTER><B>Add to PL:</B></TD>
-				<TD WIDTH=30%><B>Artist:</B></TD>
-				<TD WIDTH=10%><B>Number:</B></TD>
+		<TABLE class="songlist">
+			<TR class="header">
+				<TD WIDTH=10% ALIGN=CENTER class="menuitem">Edit Song</TD>
+				<TD WIDTH=40% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=title&letter=<? echo $letter; ?>'">Title</td>
+				<TD WIDTH=10% ALIGN=CENTER class="menuitem">Add to PL:</TD>
+				<TD WIDTH=30% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=artist&letter=<? echo $letter; ?>'"><B>Artist:</B></TD>
+				<TD WIDTH=10% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=songnum&letter=<? echo $letter; ?>'"><B>Number:</B></TD>
 			</TR>
 		<?PHP
 		if ($result !="") {
 			while ($thisrow = mysql_fetch_array($result)) {
-			      	echo "<TR><TD ALIGN=CENTER><A HREF=lyricue.php?action=editsong&song=$thisrow[id]>X</A></TD>";
+		      	echo "<TR><TD ALIGN=CENTER class=\"edit\"><A HREF=lyricue.php?action=editsong&song=$thisrow[id]>X</A></TD>";
 
-				echo "<TD><A HREF=lyricue.php?action=showsong&song=$thisrow[id]>";
+				echo "<TD class=\"title\"><A HREF=lyricue.php?action=showsong&song=$thisrow[id]>";
 				echo "$thisrow[title]</A></TD>";
 
-				if ($media[$thisrow[id]] != "") {
-					echo "<TD ALIGN=CENTER><A HREF=\"" .
-						"lyricue.php?action=playsong&song=$thisrow[id]" .
-						"\">Play</TD><TD ALIGN=CENTER>";
-
-				} else {
-					echo "<TD> </TD><TD ALIGN=CENTER>";
-				}
+				echo "<TD ALIGN=CENTER class=\"edit\">";
 				echo "<A HREF=lyricue.php?action=plcommit&song=$thisrow[id]>X</A>";
-				echo "</TD><TD>$thisrow[artist]</TD>";
-				echo "<TD>$thisrow[songnum]</TD></TR>\n";
+				echo "</TD><TD class=\"artist\">$thisrow[artist]</TD>";
+				echo "<TD class=\"songnum\">$thisrow[songnum]</TD></TR>\n";
 	
 			}
 		}

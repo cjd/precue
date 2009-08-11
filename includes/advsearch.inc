@@ -23,11 +23,11 @@
 
 		// draw table
 		?>
-			<TABLE BORDER=2><TR>
-				<TD WIDTH="70%"><B>Title</B></TD>
+			<TABLE class="songlist"><TR>
+				<TD WIDTH="70%" class="menuitem"><B>Title</B></TD>
 
-				<TD WIDTH="10%"><B>Add to PL</B></TD>
-				<TD WIDTH="20%"><B>Artist</B></TD>
+				<TD WIDTH="10%" class="menuitem"><B>Add to PL</B></TD>
+				<TD WIDTH="20%" class="menuitem"><B>Artist</B></TD>
 			</TR>
 
 		<?PHP
@@ -43,10 +43,10 @@
 			$titleresult = mysql_query("SELECT id, title, artist FROM lyricMain WHERE id=$sid[songid]", $db);
 			$titlefound = mysql_fetch_array($titleresult);
 
-			 echo "<TR><TD><A HREF=lyricue.php?action=showsong&song=$titlefound[id]>";
+			 echo "<TR><TD class=\"title\"><A HREF=lyricue.php?action=showsong&song=$titlefound[id]>";
 			 echo "$titlefound[title]</A></TD>";
-			 echo "<TD><A HREF=lyricue.php?action=plcommit&song=$titlefound[id]>X</A>";
-			 echo "</TD><TD>$titlefound[artist]</TD></TR>\n";
+			 echo "<TD class=\"edit\"><A HREF=lyricue.php?action=plcommit&song=$titlefound[id]>X</A>";
+			 echo "</TD><TD class=\"artist\">$titlefound[artist]</TD></TR>\n";
 
 
 		}
