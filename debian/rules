@@ -30,7 +30,9 @@ install: build
 
 	cp -R --parents *.css *.php images/* includes/* \
 		debian/precue/usr/share/lyricue/precue
-    rm -rf debian/precue/usr/share/lyricue/precue/*/CVS
+	rm -rf debian/precue/usr/share/lyricue/precue/includes/CVS
+	rm -rf debian/precue/usr/share/lyricue/precue/images/CVS
+
 	#install -m 644 .htaccess \
 	#	debian/precue/etc/lyricue/precue-htaccess.conf
 

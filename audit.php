@@ -12,13 +12,10 @@ mysql_select_db("lyricDb",$db);
 
 ?>
 
-<head>
-<link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
-</head>
-
-<BODY>
-
 <?PHP
+// Show the header
+include("includes/header.inc");
+
 
 if ($action == "process") {
 	$title = strtolower($format);

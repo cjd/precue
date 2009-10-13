@@ -15,15 +15,9 @@ if (strcmp($bible_type, "db") == 0) {
 session_unregister(biblesdata);
 ?>
 
-<HEAD>
-	<TITLE>Precue - <?PHP echo "$fver for Lyricue $lyricuever"; ?></TITLE>
-    <link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
-</HEAD>
-
-
-<BODY>
-
 <?PHP
+
+include("includes/header.inc");
 
 switch ($action) {
 	case "disp": displayfunctions($book,$chapter,$start,$end); break;

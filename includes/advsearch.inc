@@ -11,6 +11,7 @@
 
 		<FORM NAME="advsearch" ACTION="<?PHP echo $PHP_SELF; ?>">
 		Search text: <INPUT TYPE="text" NAME="searchtext">
+		<INPUT TYPE="hidden" NAME="mode" VALUE="song">
 		<INPUT TYPE="submit" NAME="action" VALUE="Execute Search">
 		</FORM><HR>
 
@@ -43,9 +44,9 @@
 			$titleresult = mysql_query("SELECT id, title, artist FROM lyricMain WHERE id=$sid[songid]", $db);
 			$titlefound = mysql_fetch_array($titleresult);
 
-			 echo "<TR><TD class=\"title\"><A HREF=lyricue.php?action=showsong&song=$titlefound[id]>";
+			 echo "<TR><TD class=\"title\"><A HREF=lyricue.php?mode=song&action=showsong&song=$titlefound[id]>";
 			 echo "$titlefound[title]</A></TD>";
-			 echo "<TD class=\"edit\"><A HREF=lyricue.php?action=plcommit&song=$titlefound[id]>X</A>";
+			 echo "<TD class=\"edit\"><A HREF=lyricue.php?mode=song&action=plcommit&song=$titlefound[id]>X</A>";
 			 echo "</TD><TD class=\"artist\">$titlefound[artist]</TD></TR>\n";
 
 

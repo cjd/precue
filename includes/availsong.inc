@@ -11,59 +11,59 @@
 
     <table>
     <tr><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=ALL<? echo "&sortingmech=$sortingmech"; ?>">All</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=ALL<? echo "&sortingmech=$sortingmech"; ?>">All</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=A<? echo "&sortingmech=$sortingmech"; ?>">A</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=A<? echo "&sortingmech=$sortingmech"; ?>">A</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=B<? echo "&sortingmech=$sortingmech"; ?>">B</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=B<? echo "&sortingmech=$sortingmech"; ?>">B</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=C<? echo "&sortingmech=$sortingmech"; ?>">C</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=C<? echo "&sortingmech=$sortingmech"; ?>">C</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=D<? echo "&sortingmech=$sortingmech"; ?>">D</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=D<? echo "&sortingmech=$sortingmech"; ?>">D</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=E<? echo "&sortingmech=$sortingmech"; ?>">E</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=E<? echo "&sortingmech=$sortingmech"; ?>">E</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=F<? echo "&sortingmech=$sortingmech"; ?>">F</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=F<? echo "&sortingmech=$sortingmech"; ?>">F</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=G<? echo "&sortingmech=$sortingmech"; ?>">G</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=G<? echo "&sortingmech=$sortingmech"; ?>">G</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=H<? echo "&sortingmech=$sortingmech"; ?>">H</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=H<? echo "&sortingmech=$sortingmech"; ?>">H</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=I<? echo "&sortingmech=$sortingmech"; ?>">I</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=I<? echo "&sortingmech=$sortingmech"; ?>">I</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=J<? echo "&sortingmech=$sortingmech"; ?>">J</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=J<? echo "&sortingmech=$sortingmech"; ?>">J</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=K<? echo "&sortingmech=$sortingmech"; ?>">K</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=K<? echo "&sortingmech=$sortingmech"; ?>">K</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=L<? echo "&sortingmech=$sortingmech"; ?>">L</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=L<? echo "&sortingmech=$sortingmech"; ?>">L</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=M<? echo "&sortingmech=$sortingmech"; ?>">M</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=M<? echo "&sortingmech=$sortingmech"; ?>">M</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=N<? echo "&sortingmech=$sortingmech"; ?>">N</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=N<? echo "&sortingmech=$sortingmech"; ?>">N</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=O<? echo "&sortingmech=$sortingmech"; ?>">O</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=O<? echo "&sortingmech=$sortingmech"; ?>">O</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=P<? echo "&sortingmech=$sortingmech"; ?>">P</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=P<? echo "&sortingmech=$sortingmech"; ?>">P</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Q<? echo "&sortingmech=$sortingmech"; ?>">Q</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=Q<? echo "&sortingmech=$sortingmech"; ?>">Q</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=R<? echo "&sortingmech=$sortingmech"; ?>">R</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=R<? echo "&sortingmech=$sortingmech"; ?>">R</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=S<? echo "&sortingmech=$sortingmech"; ?>">S</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=S<? echo "&sortingmech=$sortingmech"; ?>">S</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=T<? echo "&sortingmech=$sortingmech"; ?>">T</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=T<? echo "&sortingmech=$sortingmech"; ?>">T</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=U<? echo "&sortingmech=$sortingmech"; ?>">U</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=U<? echo "&sortingmech=$sortingmech"; ?>">U</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=V<? echo "&sortingmech=$sortingmech"; ?>">V</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=V<? echo "&sortingmech=$sortingmech"; ?>">V</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=W<? echo "&sortingmech=$sortingmech"; ?>">W</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=W<? echo "&sortingmech=$sortingmech"; ?>">W</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=X<? echo "&sortingmech=$sortingmech"; ?>">X</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=X<? echo "&sortingmech=$sortingmech"; ?>">X</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Y<? echo "&sortingmech=$sortingmech"; ?>">Y</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=Y<? echo "&sortingmech=$sortingmech"; ?>">Y</A>
     </td><td class="menuitem">
-	<A class="menuitem" HREF="lyricue.php?action=showavail&letter=Z<? echo "&sortingmech=$sortingmech"; ?>">Z</A>
+	<A class="menuitem" HREF="lyricue.php?mode=song&action=showavail&letter=Z<? echo "&sortingmech=$sortingmech"; ?>">Z</A>
     </td>
     </tr>
 </table>
@@ -71,9 +71,9 @@
 	<BR><BR>
 	
 	<B>Sort list by: </B>
-	<A HREF="lyricue.php?action=showavail&sortingmech=title&letter=<? echo $letter; ?>">Title</A>&nbsp;|&nbsp;
-	<A HREF="lyricue.php?action=showavail&sortingmech=artist&letter=<? echo $letter; ?>">Artist</A>&nbsp;|&nbsp;
-	<A HREF="lyricue.php?action=showavail&sortingmech=songnum&letter=<? echo $letter; ?>">Number</A>
+	<A HREF="lyricue.php?mode=song&action=showavail&sortingmech=title&letter=<? echo $letter; ?>">Title</A>&nbsp;|&nbsp;
+	<A HREF="lyricue.php?mode=song&action=showavail&sortingmech=artist&letter=<? echo $letter; ?>">Artist</A>&nbsp;|&nbsp;
+	<A HREF="lyricue.php?mode=song&action=showavail&sortingmech=songnum&letter=<? echo $letter; ?>">Number</A>
 
 	<B><U> OR</U> search by: </B>
 
@@ -82,6 +82,7 @@
 	<U>Number</U> <INPUT TYPE="RADIO" NAME="searchrad" VALUE="songnum">&nbsp;
 	<INPUT TYPE="textarea" NAME="searchtext" WIDTH="45">
 	<INPUT TYPE="submit" NAME="action" VALUE="Search">
+	<INPUT TYPE="hidden" NAME="mode" VALUE="song">
 
 	</FORM>
 	</CENTER>
@@ -122,21 +123,21 @@
 		<TABLE class="songlist">
 			<TR class="header">
 				<TD WIDTH=10% ALIGN=CENTER class="menuitem">Edit Song</TD>
-				<TD WIDTH=40% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=title&letter=<? echo $letter; ?>'">Title</td>
+				<TD WIDTH=40% class="menuitem" onclick="location.href='lyricue.php?mode=song&action=showavail&sortingmech=title&letter=<? echo $letter; ?>'">Title</td>
 				<TD WIDTH=10% ALIGN=CENTER class="menuitem">Add to PL:</TD>
-				<TD WIDTH=30% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=artist&letter=<? echo $letter; ?>'"><B>Artist:</B></TD>
-				<TD WIDTH=10% class="menuitem" onclick="location.href='lyricue.php?action=showavail&sortingmech=songnum&letter=<? echo $letter; ?>'"><B>Number:</B></TD>
+				<TD WIDTH=30% class="menuitem" onclick="location.href='lyricue.php?mode=song&action=showavail&sortingmech=artist&letter=<? echo $letter; ?>'"><B>Artist:</B></TD>
+				<TD WIDTH=10% class="menuitem" onclick="location.href='lyricue.php?mode=song&action=showavail&sortingmech=songnum&letter=<? echo $letter; ?>'"><B>Number:</B></TD>
 			</TR>
 		<?PHP
 		if ($result !="") {
 			while ($thisrow = mysql_fetch_array($result)) {
-		      	echo "<TR><TD ALIGN=CENTER class=\"edit\"><A HREF=lyricue.php?action=editsong&song=$thisrow[id]>X</A></TD>";
+		      	echo "<TR><TD ALIGN=CENTER class=\"edit\"><A HREF=lyricue.php?mode=song&action=editsong&song=$thisrow[id]>X</A></TD>";
 
-				echo "<TD class=\"title\"><A HREF=lyricue.php?action=showsong&song=$thisrow[id]>";
+				echo "<TD class=\"title\"><A HREF=lyricue.php?mode=song&action=showsong&song=$thisrow[id]>";
 				echo "$thisrow[title]</A></TD>";
 
 				echo "<TD ALIGN=CENTER class=\"edit\">";
-				echo "<A HREF=lyricue.php?action=plcommit&song=$thisrow[id]>X</A>";
+				echo "<A HREF=lyricue.php?mode=song&action=plcommit&song=$thisrow[id]>X</A>";
 				echo "</TD><TD class=\"artist\">$thisrow[artist]</TD>";
 				echo "<TD class=\"songnum\">$thisrow[songnum]</TD></TR>\n";
 	

@@ -13,7 +13,6 @@ body {
 
 .sidebar {
     position: relative;
-    width: 130px;
     vertical-align: top;
 }
 
@@ -23,8 +22,8 @@ td.menuitem {
     color: #ffffff;
     text-decoration: none;
     font-family: Arial, sans-serif;
-    font-size: 20px;
-    padding: 5px;
+    font-size: 15px;
+    padding: 3px;
 }
 
 a.menuitem, a.menuitem:visited {
@@ -39,6 +38,7 @@ td.menuitem:hover {
 
 table.menu {
     border: 0;
+    width: 100%;
 }
 
 table.songlist {

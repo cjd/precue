@@ -1,6 +1,7 @@
 <?PHP
 //begin session and register general use variables
 session_start();
+import_request_variables("GPC","");
 session_register(fver);
 session_register(lyricuever);
 session_register(bible);
@@ -8,6 +9,7 @@ session_register(biblename);
 session_register(db_host);
 session_register(db_user);
 session_register(db_pwd);
+session_register(themeset);
 
 //###########
 //USER CONFIG
@@ -15,12 +17,6 @@ session_register(db_pwd);
 $db_host='localhost';
 $db_user='lyric';
 $db_pwd='';
-
-//include the media array
-include("media.inc");
-
-//include the audit exclusions array
-//include("auditexc.inc");
 
 //##########
 //END CONFIG
@@ -34,7 +30,7 @@ $bible = "bibleDb";
 $biblename = "King James Version (Default)";
 
 //make lyricue persistent database connection
-session_register(db);
+session_register($db);
 if ($db_pwd=='') {
 	$db = mysql_pconnect("$db_host","$db_user");
 } else {
@@ -68,6 +64,6 @@ mysql_select_db("mediaDb",$mediadb);
 </HEAD>
 <BODY BGCOLOR="FFFFFF">
 <SCRIPT LANGUAGE="javascript">
-	window.location= "frames.php";
+	window.location= "lyricue.php";
 </SCRIPT>
 </BODY>

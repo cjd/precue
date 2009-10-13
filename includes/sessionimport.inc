@@ -14,5 +14,6 @@ $db_pwd = $_SESSION['db_pwd'];
 
 $media = $_SESSION['media'];
 $media_path = $_SESSION['media_path'];
+$themeset = $_SESSION['themeset'];
 
 

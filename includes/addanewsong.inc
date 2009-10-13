@@ -15,6 +15,7 @@
 					<FORM NAME="advsearch" ACTION="<?PHP echo $PHP_SELF; ?>" METHOD="POST">
 					Please type number of pages the song shall occupy here. <BR>If uncertain, enter a large number (I.e. 10).<BR>Blank pages will be ingored.<BR><BR>
 					<INPUT TYPE="text" SIZE="3" NAME="nopages">
+					<INPUT TYPE="hidden" NAME="mode" VALUE="song">
 					<INPUT TYPE="submit" NAME="addsong" VALUE="Add a new song"></FORM>
 				<?PHP
 			}
@@ -55,6 +56,7 @@
 
 				?>
 				<BR><BR><INPUT TYPE="submit" NAME="action" VALUE="Save the Song">
+					<INPUT TYPE="hidden" NAME="mode" VALUE="song">
 				</FORM>
 
 				<?PHP
