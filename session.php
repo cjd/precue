@@ -23,7 +23,7 @@ $db_pwd='';
 //##########
 
 //set the general use variables
-$fver="1.3";
+$fver="1.4";
 $lyricuever="2.0";
 $bgimage = "images/bgtile.jpg";
 $bible = "bibleDb";
