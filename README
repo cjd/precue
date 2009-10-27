@@ -7,7 +7,7 @@ Requries:
 * Web server
 * Lyricue config on web server (in /etc/lyricue/default.conf)
 
-Copy all files and folders to a publicly acessible directory on your web server. Review the section in session.php marked as "USER CONFIG" to setup your database configuration. You may wish to review media.inc which links a media file to a particular song in the database.
+Copy all files and folders to a publicly acessible directory on your web server. Review includes/config.inc to setup your database configuration.
 
 
 Creation of audit reports:

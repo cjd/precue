@@ -1,3 +1,9 @@
+precue (1.5) unstable; urgency=medium
+
+  * AJAX-ify
+
+ -- Chris Debenham <chris@adebenham.com>  Tue, 27 Oct 2009 12:00:00 +1000
+
 precue (1.4) unstable; urgency=medium
 
   * Added mobile theme (used if browser width<500)

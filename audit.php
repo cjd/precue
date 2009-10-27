@@ -1,23 +1,22 @@
 <?PHP
 session_start();
+include("includes/main.inc");
 include("includes/sessionimport.inc");
 import_request_variables("GPC","");
 
-if ($db_pwd=='') {
-	$db = mysql_pconnect("$db_host","$db_user");
-} else {
-	$db = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("lyricDb",$db);
+//if ($db_pwd=='') {
+//	$db = mysql_pconnect("$db_host","$db_user");
+//} else {
+//	$db = mysql_pconnect("$db_host","$db_user","$db_pwd");
+//}
+//mysql_select_db("lyricDb",$db);
 
 ?>
 
 <?PHP
 // Show the header
-include("includes/header.inc");
 
-
-if ($action == "process") {
+if ($page == "process") {
 	$title = strtolower($format);
 
 	$query = "";
@@ -40,7 +39,7 @@ if ($action == "process") {
 			$title = $title . " since " . $date;
 			break;
 	}
-	if ($sunday == "on") {
+	if ($sunday == "true") {
 		$query .= "and WEEKDAY(playdate) = 6 " ;
 		$title .= " on Sundays";
 	}
@@ -71,7 +70,7 @@ if ($action == "process") {
 	}
 	echo "<FONT SIZE=4 FACE=ARIAL><B>$title</B></FONT><BR>";
 	echo "<FONT SIZE=3 FACE=ARIAL><I>" . date(r) . "</I></FONT><FONT FACE=ARIAL>";
-	if ($showquery) echo "<BR><BR>The query is: <BR><B>$query</B>";
+	if ($showquery == "true") echo "<BR><BR>The query is: <BR><B>$query</B>";
 
 	?>
 	<HR>
@@ -105,16 +104,16 @@ if ($action == "process") {
 				echo "\n<TR><TD>$rank</TD>";
 				echo "\n\t<TD ALIGN=CENTER>$thisrow[count]</TD>";
 				echo "\n<TD>$thisrow[songid]</TD>";
-				echo "\n<TD><A HREF=lyricue.php?action=showsong&song=$thisrow[songid]>";
+				echo "\n<TD><A onclick=\"jumpTo('song', 'showsong','song=$thisrow[songid]')\">";
 				echo "$title[title]</A></TD>";
-				echo "<TD><A HREF=audit.php?action=when&song=$thisrow[songid]>X</A>";
+				echo "<TD><A onclick=\"jumpTo('audit','when','song=$thisrow[songid]')\">X</A>";
 				echo "</TD></TR>\n";
 				$rank++;
 			}
 		}
 	?></TABLE>
 	<?PHP
-} else if ($action=="when") {
+} else if ($page=="when") {
 	$query = "select title from lyricMain where id=$song";
 	$title = mysql_fetch_array(mysql_query($query,$db));
 	echo "<FONT SIZE=4 FACE=ARIAL><B>When has <I>\"$title[title]\"</I> been used?:</B></FONT><BR><BR>";
@@ -127,8 +126,8 @@ if ($action == "process") {
 ?>
 <FONT SIZE=3 FACE=ARIAL><B>Select audit report options:</B></FONT><BR><BR>
 <FONT SIZE=2>Please note: Limiting the number of results returned (ie Top 20 songs) may not yield completely accurate results as there may be a large number of songs played the same number of times. A "full statistics" report is the most accurate report.<BR><BR>
+<FORM NAME="audit" action="javascript:jumpTo('audit','process','duration=' + document.audit.duration.value + '&day=' + document.audit.day.value + '&month=' + document.audit.month.value + '&year=' + document.audit.year.value + '&sunday=' + document.audit.sunday.checked + '&hour=' + document.audit.hour.value + '&format=' + document.audit.format.value + '&showquery=' + document.audit.showquery.checked)">
 <TABLE WIDTH="85%" BORDER=1>
-<FORM NAME="audit_option" action=audit.php?action=process method=post>
 <TR><TH>Steps</TH><TH>Options</TH></TR>
 <TR><TD>
 1. Select report duration:	</TD><TD>
@@ -179,7 +178,8 @@ if ($action == "process") {
 	<INPUT TYPE="submit" VALUE="List all matches for above criteria" NAME="submit">
 	<BR><INPUT TYPE=CHECKBOX NAME=showquery>Show query?
 	</CENTER></TD></TR>
-</FORM>
 </TABLE>
+</FORM>
 <?PHP
 }
+?>

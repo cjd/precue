@@ -3,8 +3,8 @@
 // show a song function
 // ----------------------------------
 
-	function images() {
-	global $mediadb, $category, $db_host, $db_user, $db_pwd;
+	function images($category) {
+	global $mediadb, $db_host, $db_user, $db_pwd;
 	
 	if ($db_pwd=='') {
 		$mediadb = mysql_pconnect("$db_host","$db_user");
@@ -34,7 +34,7 @@
 					echo "<TD>Unknown</TD>";
 				}
 				
-				echo "<TD><A HREF=viewer.php?imageid=$row[2]&format=$row[3] TARGET=_new>Show</A></TD></TR>";
+				echo "<TD><A HREF=\"viewer.php?imageid=$row[2]&format=$row[3]\" target=\"_new\">Show</A></TD></TR>";
 				
 			}
 		?>

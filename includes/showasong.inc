@@ -3,7 +3,7 @@
 // show a song function
 // ----------------------------------
 
-	function showasong($songtoshow, $playmedia) {
+	function showasong($songtoshow) {
 	global $db, $media, $media_path;
 
 		$result = mysql_query("SELECT title, book, artist, songnum FROM lyricMain WHERE id=$songtoshow", $db);
@@ -22,17 +22,15 @@
 
 			$wordsdata[0] = ereg_replace("\n","<BR>\n",$wordsdata[0]);
 
-			echo "<BR>$wordsdata[0]";
+			echo "<FONT COLOR=\"0000FF\"><I>-----<B>Page $curpage</B>-----</I></FONT>";
+            echo "<table border=1><tr><td>";
+            echo "<DIV CLASS=songpage>";
+			echo "$wordsdata[0]";
+            echo "</DIV>";
+            echo "</td></tr></table>";
 
-			echo "<BR><FONT COLOR=\"0000FF\"><I>-----<B>End page $curpage</B>-----</I></FONT>";
 
 			$curpage++;
-		}
-
-		if ($playmedia == "true") {
-			echo "<EMBED SRC=\"" . $media_path . $media[$songtoshow] . "\" LOOP=0>";
-
-			echo "<A HREF=\"" . $media_path . $media[$songtoshow] . "\">Download midi</A>";
 		}
 	}
 

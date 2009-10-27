@@ -1,21 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ddddff;
-    padding: 0; 
-    margin: 0; 
-}
-
-.main {
-    position: relative;
-    width: auto;
-    vertical-align: top;
-}
-
-.sidebar {
-    position: relative;
-    vertical-align: top;
-}
-
 td.menuitem {
     text-align: center;
     background: #6363ff url(images/gradient.jpg) repeat-x 0 0;
@@ -26,39 +8,7 @@ td.menuitem {
     padding: 3px;
 }
 
-a.menuitem, a.menuitem:visited {
-    text-decoration: none;
-    color: #ffffff;
-}
-
-td.menuitem:hover {
-    background: #6363ff url(images/gradient-rev.jpg) repeat-x 0 0;
-    padding: 5px;
-}
-
-table.menu {
-    border: 0;
+img.header {
     width: 100%;
-}
-
-table.songlist {
-    border: 0;
-}
-
-tr.header {
-    background-color: #6363ff;
-    color: #ffffff;
-}
-
-td.edit {
-    background-color: #ccccee;
-}
-td.title {
-    background-color: #ddddff;
-}
-td.songnum {
-    background-color: #ddffff;
-}
-td.artist {
-    background-color: #ddddff;
+    height: auto;
 }

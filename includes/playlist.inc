@@ -1,19 +1,15 @@
 <?PHP
 
-// ----------------------------------
 // playlist functions
-// ----------------------------------
 
-
-	function playlist($plfunc,$song,$playlistId) {	
+    function clearplaylist($playlistId) {
 	global $db;
-	if ($plfunc==clear) {
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to clear:</B><BR>";
 			echo "<FONT SIZE=3><I>Note: Clearing does not delete the playlist but only the items within it. For now this only clears basic playlists (2 level lists).</I><BR><BR>";
 			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lyricue.php?mode=playlist&action=plclear&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
+				echo "<A onclick=\"jumpTo('playlist','plclear','playlistId=$thisrow[id]')\">$thisrow[title]</A><BR>";	
 			}
 		} else {
 			//get playlist ids for the items in this playlist
@@ -35,14 +31,14 @@
 	}
 
 
-	elseif ($plfunc==show) {
-
 	//-----------------Show the Playlist------------------------------
+	function showplaylist($playlistId) {
+    global $db;
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to display:<BR>";
 			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lyricue.php?mode=playlist&action=showpl&playlistId=$thisrow[id]>$thisrow[title]</A><BR>";	
+				echo "<A onclick=\"jumpTo('playlist','showpl','playlistId=$thisrow[id]')\">$thisrow[title]</A><BR>";	
 			}
 		} else {
 		
@@ -50,6 +46,13 @@
 
 	<TABLE class="songlist">
 
+    <?PHP
+    //get the playlist name
+    $plname = mysql_query("SELECT title FROM playlists WHERE id=$playlistId", $db);
+    if ($nameret = mysql_fetch_array($plname)) {
+        echo "<H2>".$nameret[title]."<H2>";
+    }
+    ?>
 	<TR class="header"><TD WIDTH="75%"><B>Title</B></TD><TD WIDTH="25%"><B>Artist</B></TD></TR>
 
 	<?PHP
@@ -68,7 +71,7 @@
 		while ($currentsong = mysql_fetch_array($plresult1)) {
 
 	
-		echo "\t<TR><TD class=\"title\"><A HREF=$PHP_SELF?mode=playlist&action=showsong&song=$currentsong[id]>$currentsong[title]</A></TD><TD class=\"artist\">$currentsong[artist]</TD></TR>\n";
+		echo "\t<TR><TD class=\"title\"><A onclick=\"jumpTo('playlist','showsong','song=$currentsong[id]')\">$currentsong[title]</A></TD><TD class=\"artist\">$currentsong[artist]</TD></TR>\n";
 
 
 		}
@@ -78,13 +81,14 @@
 		}
 	}
 
-	elseif ($plfunc==Add) {
+	function addtoplaylist($playlistId,$song) {
+    global $db;
 
 		if (!$playlistId) {
 			echo "<B>Please select the playlist you wish to add the song to:<BR>";
 			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
 			while ($thisrow = mysql_fetch_array($result)) {
-				echo "<A HREF=lyricue.php?mode=playlist&action=plcommit&playlistId=$thisrow[id]&song=$song>$thisrow[title]</A><BR>";	
+				echo "<A onclick=\"jumpTo('playlist','plcommit','playlistId=$thisrow[id]&song=$song')\">$thisrow[title]</A><BR>";	
 			}
 		} else {
 			$result = mysql_query("select title from lyricMain where id=$song",$db);
@@ -125,17 +129,14 @@
 
 			mysql_query("insert into audit (id, songid, playdate) values(0,$song,NOW())",$db);
 
-			echo "The command to insert the song <I>\"$title[title]\"</I> into the playlist was successful.<BR>Click <A HREF=lyricue.php?mode=playlist&action=showpl&playlistId=$playlistId>here</A> to view the playlist.";
+			echo "The command to insert the song <I>\"$title[title]\"</I> into the playlist was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$playlistId')\">here</A> to view the playlist.";
 		}
 	}
 
-	elseif ($plfunc == addsong) {
-
+    function addsongplaylist ($song,$playlistId) {
 	//-----------------Add song to the Playlist------------------------------
-		echo "<FONT SIZE=4><B>Adding a song:</B><BR>To add a song to a playlist follow these steps:<BR> <UL><LI>Click <A HREF=$PHP_SELF?mode=playlist&action=showavail>here</A> to visit the available songs listing.</LI><BR><LI>Click the 'X' next to the song to add the song to a playlist.</LI></UL>";
+		echo "<FONT SIZE=4><B>Adding a song:</B><BR>To add a song to a playlist follow these steps:<BR> <UL><LI>Click <A onclick=\"jumpTo('playlist','showavail','width='+window.innerWidth)\">here</A> to visit the available songs listing.</LI><BR><LI>Click the 'X' next to the song to add the song to a playlist.</LI></UL>";
 	}
-
-}
 
 ?>
 
@@ -153,12 +154,10 @@
 		?>
 		<FONT SIZE=4><B>Adding a playlist:</B><BR>To add a playlist follow these steps:<BR> <p>Enter a title for your playlist into the text box below and press the create button.</p>
 
-		<form method="post" action="lyricue.php?action=plcreateplaylist">
+		<form name="pl" action="javascript:jumpTo('playlist','createplaylist','playlisttitle='+document.pl.playlisttitle.value)">
 
 		Playlist Name: <input name="playlisttitle"><P>
 		<input type="submit" value="create">
-		<input type="hidden" name="mode" value="playlist">
-
 		</form>
 
 		<?PHP
@@ -171,7 +170,7 @@
 // ----------------------------------
 
 
-	function createplaylist() {
+	function createplaylist($playlisttitle) {
 	global $db;
       	# Insert main playlist a new playlist
 	#--------------------------
@@ -179,10 +178,9 @@
 	$result = mysql_query("select max(id) + 1 as next from playlists",$db);
 	$nextid = mysql_fetch_array($result);
 	$nextid = $nextid[next];
-	$playlist = mysql_escape_string($_POST['playlisttitle']);
-	mysql_query("insert into playlists (id, title, ref) values('$nextid', '$playlist','')",$db);
+	mysql_query("insert into playlists (id, title, ref) values('$nextid', '$playlisttitle','')",$db);
 
-	echo "The command to create a new playlist <I>\"$playlist\"</I> was successful.<BR>Click <A HREF=lyricue.php?mode=playlist&action=showpl&playlistId=$nextid>here</A> to view the playlist.";
+	echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$nextid')\">here</A> to view the playlist.";
 
 
 	}

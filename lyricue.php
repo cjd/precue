@@ -1,130 +1,168 @@
 <?PHP
 session_start();
+include("includes/main.inc");
 include("includes/sessionimport.inc");
 import_request_variables("GPC","");
-
-if ($db_pwd=='') {
-	$db = mysql_pconnect("$db_host","$db_user");
-} else {
-	$db = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("lyricDb",$db);
-
-import_request_variables("gP","");
-
-$pagesarray = array($pagedata1,$pagedata2,$pagedata3,$pagedata4,$pagedata5,$pagedata6,$pagedata7,$pagedata8, $pagedata9,$pagedata10,$pagedata11, $pagedata12,$pagedata13,$pagedata14,$pagedata15, $pagedata16,$pagedata17,$pagedata18, $pagedata19,$pagedata20);
-
-// Show the header
-include("includes/header.inc");
-
-//include the pflist function
-include("includes/pfl.inc");
-
-//include the showasong function
-include("includes/showasong.inc");
-
-//include the playlist function
-include("includes/playlist.inc");
-
-//include the advanced song search function
-include("includes/advsearch.inc");
-
-//include the song adding function
-include("includes/addanewsong.inc");
-
-//include the song editing function
-include("includes/editasong.inc");
-
-//include the available songs function
-include("includes/availsong.inc");
-
-//include the image function
-include("includes/images.inc");
-
 ?>
+<HTML>
+<HEAD>
+    <TITLE>Precue - Lyricue Frontend <?PHP echo "$fver for Lyricue $lyricuever"; ?></TITLE>
+<link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
+<SCRIPT LANGUAGE="javascript">
+    if (window.innerWidth)
+        if (window.innerWidth < 500)
+            document.write('<link rel="StyleSheet" href="mobile.css" type="text/css" title="Default">');
+</SCRIPT>
+</HEAD>
+<BODY onload="jumpTo('blank','welcome')">
+<CENTER>
+
+<IMG CLASS="header" SRC="images/precue.png" BORDER="0" onclick="jumpTo('blank','welcome')"><BR>
+
+<script type="text/javascript" src="json2007.js"></script>
+<script type="text/javascript" src="unFocus-History-p.js"></script>
+
+<script type="text/javascript">
+function historyListener (historyHash) {
+    stateVar = historyHash;
+    var loc = historyHash.parseJSON();
+    var msg = "<b>A history change has occured:</b> | newLocation=" + historyHash + " | side=" + loc[0] + " | main ="+loc[1] + " | options="+loc[2];
+    //log(msg);
+    ajaxFunction(loc[0], loc[1], loc[2]);
+}
+
+function log(msg) {
+        var logNode = document.getElementById("logWin");
+        var content = "<p>" + msg + "</p>" + logNode.innerHTML;
+        logNode.innerHTML = content;
+}
+
+function clearLog(msg) {
+        var logNode = document.getElementById("logWin");
+        logNode.innerHTML = "";
+}
+
+
+window.onload = function() {
+        unFocus.History.addEventListener('historyChange', historyListener);
+        jumpTo('blank','welcome');
+};
+
+function jumpTo(side,main,options) {
+    var currentLocation = [ side, main, options ];
+    var currentLoc = currentLocation.toJSONString();
+    //log("jumpTo:"+currentLoc);
+    unFocus.History.addHistory(currentLoc);
+}
+
+function ajaxFunction(side,main,options) {
+    var xmlhttpside;
+    var xmlhttpmain;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttpmain=new XMLHttpRequest();
+        xmlhttpside=new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttpmain=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttpside=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttpmain.onreadystatechange=function() {
+        if(xmlhttpmain.readyState==4) {
+            document.getElementById('main').innerHTML=xmlhttpmain.responseText;
+        }
+    }
+    xmlhttpside.onreadystatechange=function() {
+        if(xmlhttpside.readyState==4) {
+            document.getElementById('menu').innerHTML=xmlhttpside.responseText;
+        }
+    }
+    xmlhttpmain.open("GET",side+".php?page="+main+"&"+options,true);
+    xmlhttpmain.send(null);
+    xmlhttpside.open("GET","sidemenu.php?mode="+side,true);
+    xmlhttpside.send(null);
+}
+
+// Used by addanewsong.inc
+var pageno = 0;
+function addpage() {
+    var pagenode = document.getElementById("pages");
+    if (typeof document.songdata.pagedata2 == 'undefined') {
+        pageno=1;
+    }
+    pageno++;
+    pagenode.innerHTML = pagenode.innerHTML + "<I>Page "+pageno+"</I><BR>"+"<TEXTAREA ROWS=\"9\" COLS=50 NAME=\"pagedata"+pageno+"\"></TEXTAREA><BR>";
+}
+
+// Used by addanewsong.inc
+function savesong() {
+    var options = "songname="+escape(document.songdata.songname.value);
+    options = options + "&artist="+escape(document.songdata.artist.value);
+    options = options + "&songbook="+escape(document.songdata.songbook.value);
+    options = options + "&keywords="+escape(document.songdata.keywords.value);
+    options = options + "&songno="+escape(document.songdata.songno.value);
+    var pages = 1;
+    while (typeof eval("document.songdata.pagedata"+pages) != 'undefined') {
+        options = options + "&pagedata"+pages+"="+escape(eval("document.songdata.pagedata"+pages).value);
+        pages++;
+    }
+    pages--;
+    options = options + "&nopages=" + pages;
+    jumpTo("song","savesong",options);
+}
+
+// Used by editasong.inc
+function updatesong () {
+    var options = "songid="+document.songdata.songid.value;
+    options = options + "&songname="+escape(document.songdata.songname.value);
+    options = options + "&artist="+escape(document.songdata.artist.value);
+    options = options + "&songbook="+escape(document.songdata.songbook.value);
+    options = options + "&keywords="+escape(document.songdata.keywords.value);
+    options = options + "&songno="+escape(document.songdata.songno.value);
+    var pages = 1;
+    while (typeof eval("document.songdata.pagedata"+pages) != 'undefined') {
+        options = options + "&pagedata"+pages+"="+escape(eval("document.songdata.pagedata"+pages).value);
+        pages++;
+    }
+    pages--;
+    options = options + "&nopages=" + pages;
+    jumpTo("song","updatesong",options);
+}
+
+</script>
+
+<FONT SIZE=3" COLOR="red">
+<TABLE class="menu">
+<TR>
+<TD class="menuitem" onclick="jumpTo('song','','')">Songs</TD>
+<TD class="menuitem" onclick="jumpTo('bible','disp','mode=selectbook')">Verse</TD>
+<TD class="menuitem" onclick="jumpTo('playlist','','')">Playlist</TD>
+<TD class="menuitem" onclick="jumpTo('images','','')">Images</TD>
+<TD class="menuitem" onclick="jumpTo('audit','','')">Audit</TD>
+<TD class="menuitem" onclick="jumpTo('blank','about','')">About</TD>
+</TR>
+</TABLE>
+</FONT>
+
+</CENTER>
 
 <TABLE width=100%>
 <TBODY>
 <TR>
 <TD valign=top>
-
-<?PHP
-include("includes/menu.inc");
-
-if ($themeset=="mobile") {
-    echo "</TD></TR>\n<TR><TD>\n";
-} else {
-    echo "</TD><TD>\n";
-}
-?>
-
-<DIV CLASS="main">
-
-<?PHP
-
-if ($action) {
-switch ($action) {
-	case "pflist": showprintfriend(); break;
-	case "advsearch": advancedsongsearch($advanced,$searchtext); break;
-	case "Execute Search": advancedsongsearch("Search",$searchtext); break;
-	case "showsong": showasong($song, "false"); break;
-	case "playsong": showasong($song, "true"); break;
-	case "about": about(); break;
-	case "showpl": playlist("show",$song,$playlistId); break;
-	case "pladdsong": playlist("addsong",$son,$playlistId); break;
-	case "pladdplaylist": addplaylist(); break;
-	case "plcreateplaylist": createplaylist(); break;
-	case "plclear": playlist("clear",$song,$playlistId); break;
-	case "plcommit": playlist("Add",$song,$playlistId); break;
-	case "Add to playlist": playlist("Add",$titlefield); break;
-	case "showavail": availablesongs($sortingmech,$searchrad,$searchtext); break;
-	case "Search": availablesongs($sortingmech,$searchrad,$searchtext); break;
-	case "addsong":  addanewsong("addnew",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
-	case "Save the Song": addanewsong("",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
-	case "editsong": editasong("edit",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
-	case "Save the Edited Song": editasong("",$nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray); break;
-	case "images": images();
-	case "about": about();
-	case "blank": break;
-	default: welcome();
-}
-}else{
-welcome();
-}
-?>
+<DIV CLASS="sidemenu" ID="menu">
 </DIV>
+</TD>
+</TR><TR>
+<TD>
+<CENTER>
+<DIV CLASS="main" ID="main">
+</DIV>
+</CENTER>
 </TD>
 </TR>
 </TBODY>
 </TABLE>
-
-<?PHP
-
-// ----------------------------------
-// welcome function
-// ----------------------------------
-
-
-	function welcome() {
-		global $fver, $lyricuever;
-		?>
-			<FONT SIZE="6"><B>W</B></FONT><FONT SIZE="4"><U>elcome to Precue!</FONT></U><BR><BR><FONT SIZE="3">
-
-			Precue version <?PHP echo $fver; ?> for <a href="http://www.lyricue.org">Lyricue</a> version <?PHP echo $lyricuever; ?> gives
-			you remote access to all of the Lyricue databases.<BR><BR>
-
-			The remote lyric management functions provided by Precue give you the ability to perform the following tasks:
-			<UL>
-				<LI>Retrieve lyrics for songs</LI>
-				<LI>Retrieve verse contents for a user specified bible verse range</LI>
-				<LI>View and edit any Lyricue playlist</LI>
-				<LI>Add new songs to the database</LI>
-				<LI>Search through the lyrics of all available songs.</LI>
-				<LI>View and analyse song usage statistics</LI>
-				<LI>View all images and backgrounds in the media database</LI>
-			</UL>
-            For more infomation see the <a href="http://www.lyricue.org/precue">Precue website</a>
-		<?PHP
-	}
-		
-?>
+<div class="log" id="logWin"></div>
+</BODY>
+</HTML>

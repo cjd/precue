@@ -1,5 +1,6 @@
 <?PHP
 session_start();
+include("includes/main.inc");
 include("includes/sessionimport.inc");
 import_request_variables("GPC","");
 
@@ -17,18 +18,16 @@ session_unregister(biblesdata);
 
 <?PHP
 
-include("includes/header.inc");
-
-switch ($action) {
+switch ($page) {
 	case "disp": displayfunctions($book,$chapter,$start,$end); break;
 	case "change": changefunctions($newdb,$newbible); break;
-	default: unknown();
+	default: unknown("","");
 }
 
 function displayfunctions($book,$chapter,$start,$end) {
 global $bibledb, $mode, $biblename, $bible_type;
 	if ($mode == "selectbook") {
-		echo "<FORM NAME=display ACTION=bible.php?action=disp&mode=selectchapter METHOD=POST>";
+		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectchapter&book='+escape(document.display.book.value))\">";
 		echo "Please select the Book:<BR> <SELECT NAME=book>";
         if ($bible_type == "db") {
 		$results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
@@ -45,7 +44,7 @@ global $bibledb, $mode, $biblename, $bible_type;
 
 		$results = mysql_query("SELECT max(chapternum) FROM verse where book='$book'",$bibledb);
 
-		echo "<FORM NAME=display ACTION=\"bible.php?action=disp&mode=selectverse&book=$book\" METHOD=POST>";
+		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectverse&book=".$book."&chapter='+escape(document.display.chapter.value))\">";
 		echo "Chapter: <SELECT NAME=chapter>";
 
 		while ($current = mysql_fetch_row($results)) {
@@ -60,7 +59,7 @@ global $bibledb, $mode, $biblename, $bible_type;
 		echo "You selected <B>$book</B>, Chapter $chapter.<BR> Now select the start and end verses:";
 		$results = mysql_query("SELECT max(versenum) FROM verse where book='$book' and chapternum='$chapter'",$bibledb);
 
-		echo "<FORM NAME=display ACTION=\"bible.php?action=disp&mode=display&book=$book&chapter=$chapter\" METHOD=POST>";
+		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=display&book=".$book."&chapter=".$chapter."&start='+document.display.start.value+'&end='+document.display.end.value)\">";
 		echo "</SELECT> Starting verse: <SELECT NAME=start>";
 
 		while ($current = mysql_fetch_row($results)) {
@@ -120,7 +119,7 @@ global $db, $db_pass, $db_host, $db_user;
             if ($result) {
                 $row = mysql_fetch_assoc($result);
                 $title=$row['verse'];
-			    echo "<A HREF=\"bible.php?action=change&mode=commit&newdb=db;$dbname&newbible=$title\">$title</A><BR>";
+			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=db;$dbname&newbible=$title')\">$title</A><BR>";
             }
         }
 
@@ -130,7 +129,7 @@ global $db, $db_pass, $db_host, $db_user;
         foreach (split("\n",$output) as $row) {
             list ($sword, $title) = split(" : ", $row);
             if (!is_null($title)) {
-			    echo "<A HREF=\"bible.php?action=change&mode=commit&newdb=sword;$sword&newbible=$title\">$title</A><BR>";
+			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=sword;$sword&newbible=$title')\">$title</A><BR>";
             }
         }
 

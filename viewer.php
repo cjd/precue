@@ -1,6 +1,7 @@
 <?PHP
 session_start();
 import_request_variables("GPC","");
+include("includes/main.inc");
 include("includes/sessionimport.inc");
 
 if ($db_pwd=='') {
