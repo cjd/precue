@@ -28,7 +28,7 @@ install: build
 	dh_clean -k
 	dh_installdirs etc/lyricue var/www usr/share/lyricue/precue
 
-	cp -R --parents *.css *.php images/* includes/* \
+	cp -R --parents *.html *.js *.css *.php images/* includes/* \
 		debian/precue/usr/share/lyricue/precue
 	rm -rf debian/precue/usr/share/lyricue/precue/includes/CVS
 	rm -rf debian/precue/usr/share/lyricue/precue/images/CVS
