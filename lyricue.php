@@ -83,6 +83,27 @@ function ajaxFunction(side,main,options) {
     xmlhttpside.send(null);
 }
 
+function remoteControl(command) {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if(xmlhttp.readyState==4) {
+            document.getElementById('response').innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","remote.php?command="+command,true);
+    xmlhttp.send(null);
+}
+
+// Used by addanewsong.inc
+var pageno = 0;
+
 // Used by addanewsong.inc
 var pageno = 0;
 function addpage() {
@@ -139,7 +160,7 @@ function updatesong () {
 <TD class="menuitem" onclick="jumpTo('playlist','','')">Playlist</TD>
 <TD class="menuitem" onclick="jumpTo('images','','')">Images</TD>
 <TD class="menuitem" onclick="jumpTo('audit','','')">Audit</TD>
-<TD class="menuitem" onclick="jumpTo('blank','about','')">About</TD>
+<TD class="menuitem" onclick="jumpTo('blank','remote','')">Remote</TD>
 </TR>
 </TABLE>
 </FONT>
