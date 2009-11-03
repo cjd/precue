@@ -4,20 +4,23 @@ include("includes/main.inc");
 include("includes/sessionimport.inc");
 import_request_variables("GPC","");
 ?>
-<HTML>
-<HEAD>
-    <TITLE>Precue - Lyricue Frontend <?PHP echo "$fver for Lyricue $lyricuever"; ?></TITLE>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Precue</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
-<SCRIPT LANGUAGE="javascript">
+<script language="javascript" type="text/javascript">
     if (window.innerWidth)
         if (window.innerWidth < 500)
             document.write('<link rel="StyleSheet" href="mobile.css" type="text/css" title="Default">');
-</SCRIPT>
-</HEAD>
-<BODY onload="jumpTo('blank','welcome')">
-<CENTER>
+</script>
+</head>
+<body>
+<center>
 
-<IMG CLASS="header" SRC="images/precue.png" BORDER="0" onclick="jumpTo('blank','welcome')"><BR>
+<img class="header" src="images/precue.png" border="0" onclick="jumpTo('blank','welcome')" ALT="Precue logo"><br>
 
 <script type="text/javascript" src="json2007.js"></script>
 <script type="text/javascript" src="unFocus-History-p.js"></script>
@@ -25,15 +28,16 @@ import_request_variables("GPC","");
 <script type="text/javascript">
 function historyListener (historyHash) {
     stateVar = historyHash;
+    historyHash = unescape(historyHash);
     var loc = historyHash.parseJSON();
-    var msg = "<b>A history change has occured:</b> | newLocation=" + historyHash + " | side=" + loc[0] + " | main ="+loc[1] + " | options="+loc[2];
+    var msg = "<b>A history change has occured:<\/b> | newLocation=" + historyHash + " | side=" + loc[0] + " | main ="+loc[1] + " | options="+loc[2];
     //log(msg);
     ajaxFunction(loc[0], loc[1], loc[2]);
 }
 
 function log(msg) {
         var logNode = document.getElementById("logWin");
-        var content = "<p>" + msg + "</p>" + logNode.innerHTML;
+        var content = "<p>" + msg + "<\/p>" + logNode.innerHTML;
         logNode.innerHTML = content;
 }
 
@@ -51,13 +55,14 @@ window.onload = function() {
 function jumpTo(side,main,options) {
     var currentLocation = [ side, main, options ];
     var currentLoc = currentLocation.toJSONString();
-    //log("jumpTo:"+currentLoc);
+    currentLoc = escape(currentLoc);
     unFocus.History.addHistory(currentLoc);
 }
 
 function ajaxFunction(side,main,options) {
     var xmlhttpside;
     var xmlhttpmain;
+    //alert(main);
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttpmain=new XMLHttpRequest();
@@ -112,7 +117,7 @@ function addpage() {
         pageno=1;
     }
     pageno++;
-    pagenode.innerHTML = pagenode.innerHTML + "<I>Page "+pageno+"</I><BR>"+"<TEXTAREA ROWS=\"9\" COLS=50 NAME=\"pagedata"+pageno+"\"></TEXTAREA><BR>";
+    pagenode.innerHTML = pagenode.innerHTML + "<i>Page "+pageno+"<\/i><br>"+"<textarea rows=\"9\" cols=50 name=\"pagedata"+pageno+"\"><\/textarea><br>";
 }
 
 // Used by addanewsong.inc
@@ -152,38 +157,36 @@ function updatesong () {
 
 </script>
 
-<FONT SIZE=3" COLOR="red">
-<TABLE class="menu">
-<TR>
-<TD class="menuitem" onclick="jumpTo('song','','')">Songs</TD>
-<TD class="menuitem" onclick="jumpTo('bible','disp','mode=selectbook')">Verse</TD>
-<TD class="menuitem" onclick="jumpTo('playlist','','')">Playlist</TD>
-<TD class="menuitem" onclick="jumpTo('images','','')">Images</TD>
-<TD class="menuitem" onclick="jumpTo('audit','','')">Audit</TD>
-<TD class="menuitem" onclick="jumpTo('blank','remote','')">Remote</TD>
-</TR>
-</TABLE>
-</FONT>
+<table class="menu">
+<tr>
+<td class="menuitem" onclick="jumpTo('song','','')">Songs</td>
+<td class="menuitem" onclick="jumpTo('bible','disp','mode=selectbook')">Verse</td>
+<td class="menuitem" onclick="jumpTo('playlist','','')">Playlist</td>
+<td class="menuitem" onclick="jumpTo('images','','')">Images</td>
+<td class="menuitem" onclick="jumpTo('audit','','')">Audit</td>
+<td class="menuitem" onclick="jumpTo('blank','remote','')">Remote</td>
+</tr>
+</table>
 
-</CENTER>
+</center>
 
-<TABLE width=100%>
-<TBODY>
-<TR>
-<TD valign=top>
-<DIV CLASS="sidemenu" ID="menu">
-</DIV>
-</TD>
-</TR><TR>
-<TD>
-<CENTER>
-<DIV CLASS="main" ID="main">
-</DIV>
-</CENTER>
-</TD>
-</TR>
-</TBODY>
-</TABLE>
+<table Width="100%">
+<tbody>
+<tr>
+<td valign=top>
+<div class="sidemenu" id="menu">
+</div>
+</td>
+</tr><tr>
+<td>
+<center>
+<div class="main" id="main">
+</div>
+</center>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="log" id="logWin"></div>
-</BODY>
-</HTML>
+</body>
+</html>

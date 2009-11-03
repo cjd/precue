@@ -30,7 +30,7 @@
         echo '<table class="menu">';
         echo '<tr>';
         echo '<td class="menuitem" onclick="jumpTo(\'bible\',\'disp\',\'mode=selectbook\')">Display a range of verses</td>';
-		echo '<td class="menuitem" onclick="jumpTo(\'bible\',\'change\',\'mode=select\')">Change bible database</td>';
+		echo '<td class="menuitem" onclick="jumpTo(\'bible\',\'change\',\'mode=select\')">Change Bible translation</td>';
         echo '</tr>';
         echo '</table>';
 	}

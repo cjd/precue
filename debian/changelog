@@ -1,3 +1,10 @@
+precue (1.6) unstable; urgency=medium
+
+  * Get bible verse stuff working
+  * Make it all work on IE
+
+ -- Chris Debenham <chris@adebenham.com>  Wed, 04 Nov 2009 12:00:00 +1000
+
 precue (1.5) unstable; urgency=medium
 
   * AJAX-ify

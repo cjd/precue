@@ -25,34 +25,70 @@ switch ($page) {
 }
 
 function displayfunctions($book,$chapter,$start,$end) {
-global $bibledb, $mode, $biblename, $bible_type;
+global $bibledb, $mode, $bible_name, $bible_type;
 	if ($mode == "selectbook") {
 		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectchapter&book='+escape(document.display.book.value))\">";
+echo "$bible_type : $bible : $bible_name<br>";
 		echo "Please select the Book:<BR> <SELECT NAME=book>";
         if ($bible_type == "db") {
-		$results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
+		    $results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
+		    while ($current = mysql_fetch_row($results)) {
+			    echo "<OPTION>$current[0]</OPTION>\n";
+		    }
+        } else {
+            $books = array (
+            'Genesis',      'Exodus',        'Leviticus', 'Numbers',
+            'Deuteronomy',  'Joshua',        'Judges',    'Ruth',
+            '1 Samuel',     '2 Samuel',      '1 Kings',   '2 Kings',
+            '1 Chronicles', '2 Chronicles',  'Ezra',      'Nehemiah',
+            'Esther',       'Job',           'Psalms',    'Proverbs',
+            'Ecclesiastes', 'Song of Songs', 'Isaiah',    'Jeremiah',
+            'Lamentations', 'Ezekiel',       'Daniel',    'Hosea',
+            'Joel',         'Amos',          'Obadiah',   'Jonah',
+            'Micah',        'Nahum',         'Habakkuk',  'Zephaniah',
+            'Haggai',       'Zechariah',     'Malachi', 
+            'Matthew',      'Mark',          'Luke',      'John',
+            'Acts',         'Romans',        '1 Corinthians', '2 Corinthians',
+            'Galatians',    'Ephesians',     'Philippians','Colossians',
+            '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy',
+            'Titus',        'Philemon',      'Hebrews',   'James',
+            '1 Peter',      '2 Peter',       '1 John',    '2 John',
+            '3 John',       'Jude',          'Revelation'
+            );
+            foreach ($books as $book) {
+			    echo "<OPTION>$book</OPTION>\n";
+            }
 
-
-		while ($current = mysql_fetch_row($results)) {
-			echo "<OPTION>$current[0]</OPTION>\n";
-		}
         }
 		echo "</SELECT><INPUT TYPE=submit NAME=submit VALUE=Select></FORM>";
 	}
 	else if ($mode =="selectchapter") {
 		echo "You selected <B>$book</B>.<BR> Now select the chapter:";
-
-		$results = mysql_query("SELECT max(chapternum) FROM verse where book='$book'",$bibledb);
-
 		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectverse&book=".$book."&chapter='+escape(document.display.chapter.value))\">";
 		echo "Chapter: <SELECT NAME=chapter>";
-
-		while ($current = mysql_fetch_row($results)) {
-			for ($i = 1; $i <= $current[0]; $i++) {
-				echo "<OPTION>$i</OPTION>\n";
-			}
-		}
+        if ($bible_type == "db") {
+		    $results = mysql_query("SELECT max(chapternum) FROM verse where book='$book'",$bibledb);
+	        while ($current = mysql_fetch_row($results)) {
+		        for ($i = 1; $i <= $current[0]; $i++) {
+			        echo "<OPTION>$i</OPTION>\n";
+		        }
+		    }
+        } else {
+                #"/usr/bin/diatheke -b %s -e UTF8 -k '%s' | grep '^%s'| tail -2 | head -1",
+            $command = sprintf(
+                "/usr/bin/diatheke -b %s -e UTF8 -k '%s' ",
+                $bible_name, $book
+                );
+            exec("$command",$ret);
+            $maxchap=1;
+            #$maxchap = ereg_replace("^".$book ."([0-9]*):[0-9].*$","$1",$ret);
+		    for ($i = 1; $i <= $maxchap; $i++) {
+			    echo "<OPTION>$i</OPTION>\n";
+		    }
+        }
 		echo "</SELECT><INPUT TYPE=submit NAME=submit VALUE=Select></FORM>";
+            echo $command.":".$maxchap.":".$ret."<br>";
+echo ":".  $ret[0]."<BR>\n";
 	}
 	else if ($mode =="selectverse") {
 
@@ -119,7 +155,8 @@ global $db, $db_pass, $db_host, $db_user;
             if ($result) {
                 $row = mysql_fetch_assoc($result);
                 $title=$row['verse'];
-			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=db;$dbname&newbible=$title')\">$title</A><BR>";
+                $esctitle= str_replace("'","\'", $title);
+			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=db;$dbname&newbible=$esctitle')\">$title</A><BR>\n";
             }
         }
 
@@ -129,7 +166,8 @@ global $db, $db_pass, $db_host, $db_user;
         foreach (split("\n",$output) as $row) {
             list ($sword, $title) = split(" : ", $row);
             if (!is_null($title)) {
-			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=sword;$sword&newbible=$title')\">$title</A><BR>";
+                $esctitle= str_replace("'","\'", $title);
+			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=sword;$sword&newbible=$esctitle')\">$title</A><BR>\n";
             }
         }
 
