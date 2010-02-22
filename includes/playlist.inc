@@ -175,12 +175,17 @@
       	# Insert main playlist a new playlist
 	#--------------------------
 
-	$result = mysql_query("select max(id) + 1 as next from playlists",$db);
-	$nextid = mysql_fetch_array($result);
-	$nextid = $nextid[next];
-	mysql_query("insert into playlists (id, title, ref) values('$nextid', '$playlisttitle','')",$db);
+    $result = mysql_query("SELECT id FROM playlists WHERE title LIKE \"".$playlisttitle."\"", $db);
+    if ($thisrow = mysql_fetch_array($result) ) {
+	    echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=".$thisrow[id]."')\">here</A> to view the playlist.";
+    } else {
+	    $result = mysql_query("select max(id) + 1 as next from playlists",$db);
+	    $nextid = mysql_fetch_array($result);
+	    $nextid = $nextid[next];
+	    mysql_query("insert into playlists (id, title, ref) values('$nextid', '$playlisttitle','')",$db);
 
-	echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$nextid')\">here</A> to view the playlist.";
+	    echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$nextid')\">here</A> to view the playlist";
+    }
 
 
 	}
