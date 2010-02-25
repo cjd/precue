@@ -1,7 +1,6 @@
 <?PHP
-$fver="1.5";
-$lyricuever="2.0";
 
+header("content-type: text/html; charset=UTF-8");
 include("config.inc");
 if ($db_pwd=='') {
     $db = mysql_pconnect("$db_host","$db_user");
@@ -9,7 +8,6 @@ if ($db_pwd=='') {
     $db = mysql_pconnect("$db_host","$db_user","$db_pwd");
 }
 mysql_select_db("lyricDb",$db);
-
 
 ?>
 

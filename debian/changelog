@@ -1,4 +1,10 @@
-precue (1.7) unstable; urgency=medium
+precue (1.8) karmic; urgency=medium
+
+  * Fix duplicate posting by moving from unfocus to rsh for history handling
+
+ -- Chris Debenham <chris@adebenham.com>  Thu, 25 Feb 2010 12:00:00 +1000
+
+precue (1.7) karmic; urgency=medium
 
   * Fix duplicate playlist creation (LP#525298)
 

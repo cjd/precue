@@ -9,7 +9,7 @@ import_request_variables("GPC","");
 <html>
 <head>
 <title>Precue</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
 <script language="javascript" type="text/javascript">
     if (window.innerWidth)
@@ -23,40 +23,46 @@ import_request_variables("GPC","");
 <img class="header" src="images/precue.png" border="0" onclick="jumpTo('blank','welcome')" ALT="Precue logo"><br>
 
 <script type="text/javascript" src="json2007.js"></script>
-<script type="text/javascript" src="unFocus-History-p.js"></script>
+<script type="text/javascript" src="rsh.compressed.js"></script>
 
 <script type="text/javascript">
-function historyListener (historyHash) {
-    stateVar = historyHash;
-    historyHash = unescape(historyHash);
-    var loc = historyHash.parseJSON();
-    var msg = "<b>A history change has occured:<\/b> | newLocation=" + historyHash + " | side=" + loc[0] + " | main ="+loc[1] + " | options="+loc[2];
+
+window.dhtmlHistory.create();
+
+function rshlisten (newLocation,historyData) {
+    newLocation = unescape(newLocation);
+    var loc = newLocation.parseJSON();
+    var msg = "<b>A history change has occured:<\/b> | newLocation=" + newLocation + " | side=" + loc[0] + " | main ="+loc[1] + " | options="+loc[2];
     //log(msg);
     ajaxFunction(loc[0], loc[1], loc[2]);
+    
+}
+
+window.onload = function() {
+    dhtmlHistory.initialize();
+    dhtmlHistory.addListener(rshlisten);
+    jumpTo('blank','welcome');
 }
 
 function log(msg) {
-        var logNode = document.getElementById("logWin");
-        var content = "<p>" + msg + "<\/p>" + logNode.innerHTML;
-        logNode.innerHTML = content;
+    var logNode = document.getElementById("logWin");
+    var content = "<p>" + msg + "<\/p>" + logNode.innerHTML;
+    logNode.innerHTML = content;
 }
 
 function clearLog(msg) {
-        var logNode = document.getElementById("logWin");
-        logNode.innerHTML = "";
+    var logNode = document.getElementById("logWin");
+    logNode.innerHTML = "";
 }
 
-
-window.onload = function() {
-        unFocus.History.addEventListener('historyChange', historyListener);
-        jumpTo('blank','welcome');
-};
 
 function jumpTo(side,main,options) {
     var currentLocation = [ side, main, options ];
     var currentLoc = currentLocation.toJSONString();
     currentLoc = escape(currentLoc);
-    unFocus.History.addHistory(currentLoc);
+    //log (currentLoc);
+    dhtmlHistory.add(currentLoc);
+    rshlisten(currentLoc);
 }
 
 function ajaxFunction(side,main,options) {
