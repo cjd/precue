@@ -1,13 +1,14 @@
 #!/bin/bash
 
 for DIST in intrepid jaunty karmic lucid
-do HEADER=`cat debian/changelog-base | head -1 | sed -e 's/karmic/intrepid/g' -e 's/)/intrepid)/g'` 
-echo $HEADER > debian/changelog
-echo "  * Rebuild for intrepid " >> debian/changelog
+do echo Building for $DIST
+HEADER=`cat debian/changelog-base | head -1`
+echo $HEADER | sed -e "s/karmic/$DIST/g" -e "s/)/${DIST})/g"  > debian/changelog
+echo "  * Rebuild for ${DIST}" >> debian/changelog
 echo "" >> debian/changelog
 echo " -- Chris Debenham <chris@adebenham.com> " `date -R` >> debian/changelog
 echo "" >> debian/changelog
-cat debian/changelog-cvs >> debian/changelog
+cat debian/changelog-base >> debian/changelog
 debuild -S -sa -kB734D1F5
 done
 
