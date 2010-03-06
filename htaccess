@@ -1,0 +1,1 @@
+php_value suhosin.get.max_value_length 64000

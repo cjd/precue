@@ -1,3 +1,9 @@
+precue (1.8.1) karmic; urgency=low
+
+  * Add htaccess so that suhosin doesn't stop precue from working
+
+ -- Chris Debenham <chris@adebenham.com>  Sat, 06 Mar 2010 12:00:00 +1000
+
 precue (1.8) karmic; urgency=medium
 
   * Fix duplicate posting by moving from unfocus to rsh for history handling

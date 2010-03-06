@@ -33,8 +33,8 @@ install: build
 	rm -rf debian/precue/usr/share/lyricue/precue/includes/CVS
 	rm -rf debian/precue/usr/share/lyricue/precue/images/CVS
 
-	#install -m 644 .htaccess \
-	#	debian/precue/etc/lyricue/precue-htaccess.conf
+	install -m 644 htaccess \
+		debian/precue/usr/share/lyricue/precue/.htaccess
 
 # Build architecture-independent files here.
 # Pass -i to all debhelper commands in this target to reduce clutter.
