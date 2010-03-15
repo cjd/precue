@@ -66,6 +66,7 @@ function editasong($song) {
 			while ($count < $pagecount) {
 			      $lyrics = $pagesarray[$count];
 				$count ++;
+                $lyrics = mysql_real_escape_string($lyrics);
 				mysql_query("UPDATE page SET lyrics='$lyrics' WHERE pagenum=$count AND songid='$songid'",$db);
 
 
