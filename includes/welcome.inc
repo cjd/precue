@@ -4,7 +4,7 @@
         print '
 			<FONT SIZE="6"><B>W</B></FONT><FONT SIZE="4"><U>elcome to Precue!</U></FONT><BR><BR><FONT SIZE="3">
 
-			Precue version 1.8 for <a href="http://www.lyricue.org">Lyricue</a> version 2.0 gives
+			Precue version 1.9 for <a href="http://www.lyricue.org">Lyricue</a> version 2.0 gives
 			you remote access to all of the Lyricue databases.<BR><BR>
 
 			The remote lyric management functions provided by Precue give you the ability to perform the following tasks:

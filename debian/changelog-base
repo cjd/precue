@@ -1,3 +1,9 @@
+precue (1.9) karmic; urgency=low
+
+  * Fix adding songs with special characters
+
+ -- Chris Debenham <chris@adebenham.com>  Mon, 15 Mar 2010 12:00:00 +1000
+
 precue (1.8.1) karmic; urgency=low
 
   * Add htaccess so that suhosin doesn't stop precue from working

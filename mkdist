@@ -4,6 +4,7 @@ for DIST in intrepid jaunty karmic lucid
 do echo Building for $DIST
 HEADER=`cat debian/changelog-base | head -1`
 echo $HEADER | sed -e "s/karmic/$DIST/g" -e "s/)/${DIST})/g"  > debian/changelog
+echo "" >> debian/changelog
 echo "  * Rebuild for ${DIST}" >> debian/changelog
 echo "" >> debian/changelog
 echo " -- Chris Debenham <chris@adebenham.com> " `date -R` >> debian/changelog
