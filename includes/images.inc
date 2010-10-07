@@ -12,6 +12,7 @@
 		$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
 	}
 	mysql_select_db("mediaDb",$mediadb);
+    mysql_set_charset('utf8',$mediadb); 
 		?>
 			<B>Available images:</B><BR><BR>
 			Background - For display behind text<BR>

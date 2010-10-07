@@ -6,7 +6,6 @@
 // mclearwater@gmail.com
 // ----------------------------------
 
-
 function editasong($song) {
     global $db;
     $result = mysql_query("select * from lyricMain where id='$song'",$db);
@@ -21,7 +20,7 @@ function editasong($song) {
     }
     ?>
 
-	<FORM NAME="songdata" ACTION="javascript:updatesong()" METHOD="POST">
+	<FORM NAME="songdata" ACTION="javascript:updatesong()" METHOD="POST" accept-charset="utf-8">
 	<INPUT TYPE="hidden" NAME="songid" VALUE="<?PHP echo "$thisSong[id]"; ?>">
 	<FONT SIZE="4"><B>Editing a song:</B></FONT><BR>
 	Song Name: <INPUT TYPE="text" SIZE="50" NAME="songname" VALUE="<?PHP echo "$thisSong[title]"; ?>"><BR>
@@ -66,7 +65,7 @@ function editasong($song) {
 			while ($count < $pagecount) {
 			      $lyrics = $pagesarray[$count];
 				$count ++;
-                $lyrics = mysql_real_escape_string($lyrics);
+                $lyrics = mysql_real_escape_string(utf8_urldecode($lyrics));
 				mysql_query("UPDATE page SET lyrics='$lyrics' WHERE pagenum=$count AND songid='$songid'",$db);
 
 

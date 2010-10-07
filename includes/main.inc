@@ -8,6 +8,7 @@ if ($db_pwd=='') {
     $db = mysql_pconnect("$db_host","$db_user","$db_pwd");
 }
 mysql_select_db("lyricDb",$db);
+mysql_set_charset('utf8',$db); 
 
 ?>
 

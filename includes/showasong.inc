@@ -25,7 +25,7 @@
 			echo "<FONT COLOR=\"0000FF\"><I>-----<B>Page $curpage</B>-----</I></FONT>";
             echo "<table border=1><tr><td>";
             echo "<DIV CLASS=songpage>";
-			echo "$wordsdata[0]";
+			echo $wordsdata[0];
             echo "</DIV>";
             echo "</td></tr></table>";
 

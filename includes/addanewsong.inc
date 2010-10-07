@@ -10,7 +10,7 @@
 			?>
 			</CENTER>
 
-			<FORM NAME="songdata" ACTION="javascript:savesong()" METHOD="POST">
+			<FORM NAME="songdata" ACTION="javascript:savesong()" METHOD="POST" accept-charset="utf-8">
 			<FONT SIZE="4"><B>Adding a new song:</B></FONT><BR>
 			Song Name: <INPUT TYPE="text" SIZE="50" NAME="songname"><BR>
 			Artist(s): <INPUT TYPE="text" SIZE="50" NAME="artist"><BR>
@@ -31,6 +31,11 @@
 			<?PHP
 		}
 
+  function utf8_urldecode($str) {
+    $str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urldecode($str));
+    return html_entity_decode($str,null,'UTF-8');;
+  }
+
     function savesong ($nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray) {
         global $db;
 			//commit the song to the database
@@ -50,6 +55,7 @@
 			while (count <=19 & $pagesarray[$count] != "") {
 
 				$pagecount = $count + 1;
+                $lyrics = mysql_real_escape_string(utf8_urldecode($pagesarray[$count]));
 
 				//determine what pageid to give the current page
 				$result = mysql_query("SELECT MAX(pageid)+1 FROM page WHERE pageid < 2000000", $db);
@@ -58,7 +64,7 @@
 				#ereg_replace($pagesarray[$count],'\r','');
 
 				// insert pageid songid pagenum lyrics
-				mysql_query("INSERT INTO page (pageid, songid, pagenum, lyrics)VALUES('$nextpageid[0]','$songid','$pagecount','$pagesarray[$count]')",$db);
+				mysql_query("INSERT INTO page (pageid, songid, pagenum, lyrics)VALUES('$nextpageid[0]','$songid','$pagecount','$lyrics')",$db);
 
 				$count ++;
 
