@@ -3,8 +3,10 @@
 // show a song function
 // ----------------------------------
 
-	function showasong($songtoshow) {
+	function showasong() {
 	global $db, $media, $media_path;
+    $songtoshow=0;
+    if (isset($_REQUEST['song'])) $songtoshow=$_REQUEST['song'];
 
 		$result = mysql_query("SELECT title, book, artist, songnum FROM lyricMain WHERE id=$songtoshow", $db);
 		$thissong = mysql_fetch_array($result);

@@ -1,37 +1,31 @@
 <?PHP
-session_start();
 include("includes/main.inc");
-include("includes/sessionimport.inc");
-import_request_variables("GPC","");
-
-list ($bible_type,$bible_name) = split(";", $bible);
-if (strcmp($bible_type, "db") == 0) {
-    if ($db_pwd=='') {
-	    $bibledb = mysql_pconnect("$db_host","$db_user");
-    } else {
-	    $bibledb = mysql_pconnect("$db_host","$db_user","$db_pwd");
-    }
-    mysql_select_db("$bible_name",$bibledb);
-}
-session_unregister(biblesdata);
 ?>
 
 <?PHP
-
-switch ($page) {
-	case "disp": displayfunctions($book,$chapter,$start,$end); break;
+switch ($_REQUEST['page']) {
+	case "disp": displayfunctions(); break;
 	case "change": changefunctions($newdb,$newbible); break;
 	default: unknown("","");
 }
 
-function displayfunctions($book,$chapter,$start,$end) {
+function displayfunctions() {
 global $bibledb, $mode, $bible_name, $bible_type;
+    $book="";
+    $chapter=0;
+    $start=0;
+    $end=0;
+    if (isset($_REQUEST['book'])) $book=$_REQUEST['book'];
+    if (isset($_REQUEST['chapter'])) $chapter=$_REQUEST['chapter'];
+    if (isset($_REQUEST['start'])) $start=$_REQUEST['start'];
+    if (isset($_REQUEST['end'])) $end=$_REQUEST['end'];
+
 	if ($mode == "selectbook") {
 		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectchapter&book='+escape(document.display.book.value))\">";
 echo "$bible_type : $bible : $bible_name<br>";
 		echo "Please select the Book:<BR> <SELECT NAME=book>";
         if ($bible_type == "db") {
-		    $results = mysql_query("SELECT DISTINCT book FROM verse",$bibledb);
+		    $results = mysql_query("SELECT DISTINCT book FROM verse",$_SESSION['bibledb']);
 		    while ($current = mysql_fetch_row($results)) {
 			    echo "<OPTION>$current[0]</OPTION>\n";
 		    }

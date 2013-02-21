@@ -3,13 +3,11 @@
 // printer friendly song \list function
 // -----------------------------------
 
-session_start();
 include("includes/main.inc");
-include("includes/sessionimport.inc");
 
 $result= mysql_query("SELECT title, artist, songnum FROM lyricMain ORDER BY title", $db);
 echo "<FONT FACE=ARIAL SIZE=5><B>Lyricue Songlist</B></FONT><BR>";
-$now = date(r);
+$now = date('r');
 echo "<FONT FACE=ARIAL SIZE=4><I>Current as of $now</I></FONT><BR>";
 ?>
 <TABLE BORDER=2>
@@ -21,15 +19,15 @@ echo "<FONT FACE=ARIAL SIZE=4><I>Current as of $now</I></FONT><BR>";
 <?PHP
 
 while ($thisrow = mysql_fetch_array($result)) {
-    if ($thisrow[artist] == "") {
-        $thisrow[artist] = "&nbsp;";
+    if ($thisrow['artist'] == "") {
+        $thisrow['artist'] = "&nbsp;";
     }
-    if ($thisrow[songnum] == "0") {
-        $thisrow[songnum] = "&nbsp;";
+    if ($thisrow['songnum'] == "0") {
+        $thisrow['songnum'] = "&nbsp;";
     }
-    echo "<TR><TD>$thisrow[title]</TD>";
-    echo "<TD>$thisrow[artist]</TD>";
-    echo "<TD>$thisrow[songnum]</TD></TR>";
+    echo "<TR><TD>".$thisrow['title']."</TD>";
+    echo "<TD>".$thisrow['artist']."</TD>";
+    echo "<TD>".$thisrow['songnum']."</TD></TR>";
 }
 echo "</TABLE>";
 

@@ -10,6 +10,7 @@ if ($db_pwd=='') {
 	$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
 }
 mysql_select_db("mediaDb",$mediadb);
+mysql_set_charset('utf8',$mediadb); 
 
 if ($format=="png") {
 	header("Content-type: image/png");

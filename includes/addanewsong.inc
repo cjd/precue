@@ -36,8 +36,14 @@
     return html_entity_decode($str,null,'UTF-8');;
   }
 
-    function savesong ($nopages,$songname,$artist,$songno,$songbook,$keywords,$pagesarray) {
+    function savesong () {
         global $db;
+        $pagesarray = array();
+        for ($pagenum = 1; $pagenum <= $_REQUEST['nopages']; $pagenum++) {
+            $pagename="pagedata".$pagenum;
+            $pagesarray[] = $_REQUEST[$pagename];
+        }
+
 			//commit the song to the database
 
 

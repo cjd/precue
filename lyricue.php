@@ -1,15 +1,13 @@
 <?PHP
 session_start();
 include("includes/main.inc");
-include("includes/sessionimport.inc");
-import_request_variables("GPC","");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Precue</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<title>Precue</title>
 <link rel="StyleSheet" href="theme.css" type="text/css" title="Default">
 <script language="javascript" type="text/javascript">
     if (window.innerWidth)
@@ -118,12 +116,23 @@ var pageno = 0;
 // Used by addanewsong.inc
 var pageno = 0;
 function addpage() {
-    var pagenode = document.getElementById("pages");
     if (typeof document.songdata.pagedata2 == 'undefined') {
         pageno=1;
     }
     pageno++;
-    pagenode.innerHTML = pagenode.innerHTML + "<i>Page "+pageno+"<\/i><br>"+"<textarea rows=\"9\" cols=50 name=\"pagedata"+pageno+"\"><\/textarea><br>";
+
+    var header = document.createElement('i');
+    header.innerHTML = "Page "+pageno;
+    document.getElementById("pages").appendChild(header);
+    document.getElementById("pages").appendChild(document.createElement('br'));
+
+    var textarea = document.createElement('textarea');
+    textarea.setAttribute('rows', '9');
+    textarea.setAttribute('cols', '50');
+    textarea.setAttribute('name', 'pagedata'+pageno);
+    document.getElementById("pages").appendChild(textarea);
+    document.getElementById("pages").appendChild(document.createElement('br'));
+
 }
 
 // Used by addanewsong.inc
@@ -168,7 +177,7 @@ function updatesong () {
 <td class="menuitem" onclick="jumpTo('song','','')">Songs</td>
 <td class="menuitem" onclick="jumpTo('bible','disp','mode=selectbook')">Verse</td>
 <td class="menuitem" onclick="jumpTo('playlist','','')">Playlist</td>
-<td class="menuitem" onclick="jumpTo('images','','')">Images</td>
+<!-- <td class="menuitem" onclick="jumpTo('images','','')">Images</td> -->
 <td class="menuitem" onclick="jumpTo('audit','','')">Audit</td>
 <td class="menuitem" onclick="jumpTo('blank','remote','')">Remote</td>
 </tr>

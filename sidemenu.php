@@ -1,11 +1,9 @@
 <?PHP
     session_start();
-    include("includes/sessionimport.inc");
     include("includes/main.inc");
-    import_request_variables("GPC","");
 
     echo "<CENTER>\n";
-	switch ($mode) {
+	switch ($_GET['mode']) {
 		case "song": songmanage(); break;
 		case "bible": biblemanage(); break;
 		case "playlist": plmanage(); break;
@@ -54,6 +52,7 @@
 			$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
 		}
 		mysql_select_db("mediaDb",$mediadb);
+        mysql_set_charset('utf8',$mediadb); 
 	
 		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img' ORDER BY Category";
 		$results = mysql_query($query,$mediadb);

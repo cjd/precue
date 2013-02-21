@@ -4,8 +4,10 @@
 // advancedsongsearch functions
 // ----------------------------------
 
-	function advancedsongsearch($advanced,$searchtext) {
+	function advancedsongsearch() {
 	global $db;
+    $searchtext="";
+    if (isset($_REQUEST['searchtext'])) $searchtext=$_REQUEST['searchtext'];
 
 	?> The Advanced song search allows you to search for songs in which the contents match what you search for.<BR>You may use partial words in your search.<BR><BR>
 
@@ -16,7 +18,7 @@
 
 	<?PHP
 
-	if ($advanced == "Search") {
+	if (isset($_REQUEST['advanced']) && $_REQUEST['advanced'] == "Search") {
 
 
 		echo "<FONT SIZE=4>Your search for <I>\"$searchtext\"</I> returned the following results:</FONT><BR>";

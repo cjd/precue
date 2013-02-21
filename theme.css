@@ -63,6 +63,7 @@ tr.header {
 
 td.edit {
     background-color: #ccccee;
+    cursor: pointer;
 }
 td.title {
     background-color: #ddddff;

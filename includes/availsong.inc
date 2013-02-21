@@ -3,8 +3,18 @@
 // available songs function
 // ----------------------------------
 
-	function availablesongs($sortingmech,$searchrad,$searchtext,$width) {
+	function availablesongs() {
 	global $db, $letter;
+    $sortingmech="";
+    $searchrad="";
+    $searchtext="";
+    $width=600;
+    $letter="All";
+    if (isset($_REQUEST['sortingmech'])) $sortingmech=$_REQUEST['sortingmech'];
+    if (isset($_REQUEST['searchrad'])) $searchrad=$_REQUEST['searchrad'];
+    if (isset($_REQUEST['searchtext'])) $searchtext=$_REQUEST['searchtext'];
+    if (isset($_REQUEST['width'])) $width=$_REQUEST['width'];
+    if (isset($_REQUEST['letter'])) $letter=$_REQUEST['letter'];
 ?>
 	<FORM NAME="search" ACTION="javascript:jumpTo('song','showavail','sortingmech=<?PHP echo $sortingmech; ?>&searchrad='+document.search.searchrad.value+'&searchtext='+escape(document.search.searchtext.value)+'&width='+window.innerWidth)">
 
