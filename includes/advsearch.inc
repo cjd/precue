@@ -38,12 +38,12 @@
 		$searchtext = ereg_replace(" ","%",$searchtext);
 
 		// get songid for all lyric pages containing the search text
-		$result = mysql_query("SELECT DISTINCT songid FROM page WHERE lyrics LIKE \"%$searchtext%\"", $db);
+		$result = mysqli_query($db,"SELECT DISTINCT songid FROM page WHERE lyrics LIKE \"%$searchtext%\"");
 		
-		while ($sid = mysql_fetch_array($result)) {
+		while ($sid = mysqli_fetch_array($result)) {
 
-			$titleresult = mysql_query("SELECT id, title, artist FROM lyricMain WHERE id=$sid[songid]", $db);
-			$titlefound = mysql_fetch_array($titleresult);
+			$titleresult = mysqli_query($db,"SELECT id, title, artist FROM lyricMain WHERE id=$sid[songid]");
+			$titlefound = mysqli_fetch_array($titleresult);
 
 			 echo "<TR><TD class=\"title\"><A onclick=\"jumpTo('song','showsong','song=$titlefound[id]')\">";
 			 echo "$titlefound[title]</A></TD>";

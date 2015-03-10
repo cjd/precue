@@ -8,30 +8,16 @@ $bible = "bibleDb";
 $bible_type = "db";
 $biblename = "King James Version (Default)";
 
-//make lyricue persistent database connection
-if ($db_pwd=='') {
-	$_SESSION['db'] = mysql_pconnect("$db_host","$db_user");
-} else {
-	$_SESSION['db'] = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("lyricDb",$db);
-mysql_set_charset('utf8',$db); 
+//make lyricue persistent database connection TODO-make persist
+$_SESSION['db'] = mysqli_connect("$db_host","$db_user","$db_pwd","lyricDb");
+mysqli_set_charset($_SESSION['db'],'utf8'); 
 
-//make lyricue persistent bible database connection
-if ($db_pwd=='') {
-    $_SESSION['bibledb'] = mysql_pconnect("$db_host","$db_user");
-} else {
-	$_SESSION['bibledb']= mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("$bible",$bibledb);
+//make lyricue persistent bible database connection TODO-make persist
+$_SESSION['bibledb']= mysqli_connect("$db_host","$db_user","$db_pwd",$bible);
+mysqli_set_charset($_SESSION['bibledb'],'utf8'); 
 
 //make media database connection
-if ($db_pwd=='') {
-	$_SESSION['mediadb'] = mysql_pconnect("$db_host","$db_user");
-} else {
-	$_SESSION['mediadb'] = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("mediaDb",$mediadb);
+$_SESSION['mediadb'] = mysqli_connect("$db_host","$db_user","$db_pwd","mediaDb");
 
 //jump out of php and redirect to main frameset
 ?>

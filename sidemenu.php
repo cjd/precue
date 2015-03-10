@@ -46,18 +46,13 @@
 	
 	function mediamanage() {
 		global $mediadb,$db_pwd, $db_user, $db_host;
-		if ($db_pwd=='') {
-			$mediadb = mysql_pconnect("$db_host","$db_user");
-		} else {
-			$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
-		}
-		mysql_select_db("mediaDb",$mediadb);
-        mysql_set_charset('utf8',$mediadb); 
+		$mediadb = mysqli_connect("$db_host","$db_user","$db_pwd","mediaDb");
+        mysqli_set_charset($mediadb,'utf8'); 
 	
 		$query = "SELECT DISTINCT category FROM media WHERE type = 'bg' OR type='img' ORDER BY Category";
-		$results = mysql_query($query,$mediadb);
+		$results = mysqli_query($mediadb,$query);
         echo "<table class=\"menu\"><tr>";
-		while ($row = mysql_fetch_row($results)) {
+		while ($row = mysqli_fetch_row($results)) {
 		    echo "<td class=\"menuitem\" onclick=\"jumpTo('images','catselect','category=$row[0]')\">$row[0]</td>";
 		}
         echo "</tr></table>";

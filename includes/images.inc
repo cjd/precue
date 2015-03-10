@@ -6,13 +6,8 @@
 	function images($category) {
 	global $mediadb, $db_host, $db_user, $db_pwd;
 	
-	if ($db_pwd=='') {
-		$mediadb = mysql_pconnect("$db_host","$db_user");
-	} else {
-		$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
-	}
-	mysql_select_db("mediaDb",$mediadb);
-    mysql_set_charset('utf8',$mediadb); 
+	$mediadb = mysqli_connect("$db_host","$db_user","$db_pwd","mediaDb");
+    mysqli_set_charset($mediadb,'utf8'); 
 		?>
 			<B>Available images:</B><BR><BR>
 			Background - For display behind text<BR>
@@ -23,9 +18,9 @@
 					<TH>Type</TH>
 				</TR>
 		<?
-			$results = mysql_query("SELECT description, type, id, format FROM media WHERE category='$category' ORDER BY description",$mediadb);
+			$results = mysqli_query($mediadb,"SELECT description, type, id, format FROM media WHERE category='$category' ORDER BY description");
 			
-			while ($row = mysql_fetch_row($results)) {
+			while ($row = mysqli_fetch_row($results)) {
 				echo "<TR><TD>$row[0]</TD>";
 				if ($row[1] == "bg") {
 					echo "<TD>Background</TD>";	

@@ -8,17 +8,17 @@
     $songtoshow=0;
     if (isset($_REQUEST['song'])) $songtoshow=$_REQUEST['song'];
 
-		$result = mysql_query("SELECT title, book, artist, songnum FROM lyricMain WHERE id=$songtoshow", $db);
-		$thissong = mysql_fetch_array($result);
+		$result = mysqli_query($db,"SELECT title, book, artist, songnum FROM lyricMain WHERE id=$songtoshow");
+		$thissong = mysqli_fetch_array($result);
 		echo "</CENTER><I><FONT SIZE=4>$thissong[title]</I><FONT SIZE=3><BR>";
 		echo "<U>Songbook</U>: $thissong[book]<BR><U>Artist</U>: $thissong[artist]<BR><U>Song Number</U>: $thissong[songnum]<BR>\n";
 
 		
-		$wordsresult = mysql_query("SELECT lyrics FROM page WHERE songid=$songtoshow ORDER BY pagenum" , $db);
+		$wordsresult = mysqli_query($db, "SELECT lyrics FROM page WHERE songid=$songtoshow ORDER BY pagenum");
 		
 		$curpage=1;
 
-		while ($wordsdata = mysql_fetch_row($wordsresult)) {
+		while ($wordsdata = mysqli_fetch_row($wordsresult)) {
 
 			echo "<BR>";		
 

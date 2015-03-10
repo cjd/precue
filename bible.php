@@ -25,8 +25,8 @@ global $bibledb, $mode, $bible_name, $bible_type;
 echo "$bible_type : $bible : $bible_name<br>";
 		echo "Please select the Book:<BR> <SELECT NAME=book>";
         if ($bible_type == "db") {
-		    $results = mysql_query("SELECT DISTINCT book FROM verse",$_SESSION['bibledb']);
-		    while ($current = mysql_fetch_row($results)) {
+		    $results = mysqli_query($_SESSION['bibledb'],"SELECT DISTINCT book FROM verse");
+		    while ($current = mysqli_fetch_row($results)) {
 			    echo "<OPTION>$current[0]</OPTION>\n";
 		    }
         } else {
@@ -61,8 +61,8 @@ echo "$bible_type : $bible : $bible_name<br>";
 		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=selectverse&book=".$book."&chapter='+escape(document.display.chapter.value))\">";
 		echo "Chapter: <SELECT NAME=chapter>";
         if ($bible_type == "db") {
-		    $results = mysql_query("SELECT max(chapternum) FROM verse where book='$book'",$bibledb);
-	        while ($current = mysql_fetch_row($results)) {
+		    $results = mysqli_query($bibledb,"SELECT max(chapternum) FROM verse where book='$book'");
+	        while ($current = mysqli_fetch_row($results)) {
 		        for ($i = 1; $i <= $current[0]; $i++) {
 			        echo "<OPTION>$i</OPTION>\n";
 		        }
@@ -87,22 +87,22 @@ echo ":".  $ret[0]."<BR>\n";
 	else if ($mode =="selectverse") {
 
 		echo "You selected <B>$book</B>, Chapter $chapter.<BR> Now select the start and end verses:";
-		$results = mysql_query("SELECT max(versenum) FROM verse where book='$book' and chapternum='$chapter'",$bibledb);
+		$results = mysqli_query($bibledb,"SELECT max(versenum) FROM verse where book='$book' and chapternum='$chapter'");
 
 		echo "<FORM NAME=display ACTION=\"javascript:jumpTo('bible','disp','mode=display&book=".$book."&chapter=".$chapter."&start='+document.display.start.value+'&end='+document.display.end.value)\">";
 		echo "</SELECT> Starting verse: <SELECT NAME=start>";
 
-		while ($current = mysql_fetch_row($results)) {
+		while ($current = mysqli_fetch_row($results)) {
 			for ($i = 1; $i <= $current[0]; $i++) {
 				echo "<OPTION>$i</OPTION>\n";
 			}
 		}
 
-		$results = mysql_query("SELECT max(versenum) FROM verse where book='$book' and chapternum='$chapter'",$bibledb);
+		$results = mysqli_query($bibledb,"SELECT max(versenum) FROM verse where book='$book' and chapternum='$chapter'");
 
 		echo "</SELECT> Ending verse: <SELECT NAME=end>";
 
-		while ($current = mysql_fetch_row($results)) {
+		while ($current = mysqli_fetch_row($results)) {
 			for ($i = 1; $i <= $current[0]; $i++) {
 				echo "<OPTION>$i</OPTION>\n";
 			}
@@ -114,11 +114,10 @@ echo ":".  $ret[0]."<BR>\n";
 		echo "<B>$book</B>, Chapter $chapter, Verses $start - $end.<BR><BR>";
 
 
-		$results = mysql_query("SELECT versenum, verse FROM verse where book='$book' 
-					and chapternum='$chapter' and versenum >= '$start' and versenum <= '$end'",$bibledb);
+		$results = mysqli_query($bibledb, "SELECT versenum, verse FROM verse where book='$book' and chapternum='$chapter' and versenum >= '$start' and versenum <= '$end'");
 
 
-		while ($current = mysql_fetch_row($results)) {
+		while ($current = mysqli_fetch_row($results)) {
 			echo "<FONT COLOR=0000FF><B>$current[0]</B>: </FONT>$current[1]<BR>";
 		}
 
@@ -135,19 +134,19 @@ global $db, $db_pass, $db_host, $db_user;
 	if ($mode == "select") {
 		echo "<B>Please select the new bible database to use:</B><BR>";
         if ($db_pwd=='') {
-                $db = mysql_pconnect("$db_host","$db_user");
+                $db = mysqli_connect("$db_host","$db_user");
         } else {
-                $db = mysql_pconnect("$db_host","$db_user","$db_pwd");
+                $db = mysqli_connect("$db_host","$db_user","$db_pwd");
         }
 
-        $db_list = mysql_list_dbs($db);
-        while ($row = mysql_fetch_object($db_list)) {
+        $db_list = mysqli_list_dbs($db);
+        while ($row = mysqli_fetch_object($db_list)) {
             $query = "SELECT * FROM verse WHERE book=\"Bible\";";
             $dbname = $row->Database;
-            mysql_select_db($dbname);
-            $result = mysql_query($query, $db);
+            mysqli_select_db($dbname);
+            $result = mysqli_query($db,$query);
             if ($result) {
-                $row = mysql_fetch_assoc($result);
+                $row = mysqli_fetch_assoc($result);
                 $title=$row['verse'];
                 $esctitle= str_replace("'","\'", $title);
 			    echo "<A onclick=\"jumpTo('bible','change','mode=commit&newdb=db;$dbname&newbible=$esctitle')\">$title</A><BR>\n";

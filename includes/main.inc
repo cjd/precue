@@ -2,13 +2,8 @@
 
 header("content-type: text/html; charset=UTF-8");
 include("config.inc");
-if ($db_pwd=='') {
-    $db = mysql_pconnect("$db_host","$db_user");
-} else {
-    $db = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("lyricDb",$db);
-mysql_set_charset('utf8',$db); 
+$db = mysqli_connect("$db_host","$db_user","$db_pwd","lyricDb");
+mysqli_set_charset($db,'utf8'); 
 
 ?>
 

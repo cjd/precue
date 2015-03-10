@@ -74,9 +74,9 @@ if ($_REQUEST['page'] == "process") {
 			<?PHP } ?>
 		</TR>
 	<?PHP
-		$result = mysql_query($query,$db);
+		$result = mysqli_query($db, $query);
 		$rank=1;
-		while ($thisrow = mysql_fetch_array($result)) {
+		while ($thisrow = mysqli_fetch_array($result)) {
 			if ($_REQUEST['format'] == "New Songs") {
 				echo "\n<TR><TD>".$thisrow['id']."</TD>";
 				echo "\n\t<TD>".$thisrow['entered']."</TD>";
@@ -84,7 +84,7 @@ if ($_REQUEST['page'] == "process") {
 				echo "\n\t<TD>".$thisrow['title']."</TD></TR>\n";
 			} else {
 				$query2 = "select title from lyricMain where id=" . $thisrow['songid'];
-				$title = mysql_fetch_array(mysql_query($query2,$db));
+				$title = mysqli_fetch_array(mysqli_query($db,$query2));
 				echo "\n<TR><TD>".$rank."</TD>";
 				echo "\n\t<TD ALIGN=CENTER>".$thisrow['count']."</TD>";
 				echo "\n<TD>".$thisrow['songid']."</TD>";
@@ -99,11 +99,11 @@ if ($_REQUEST['page'] == "process") {
 	<?PHP
 } else if ($_REQUEST['page']=="when") {
 	$query = "select title from lyricMain where id=$song";
-	$title = mysql_fetch_array(mysql_query($query,$db));
+	$title = mysqli_fetch_array(mysqli_query($db,$query));
 	echo "<FONT SIZE=4 FACE=ARIAL><B>When has <I>\"$title[title]\"</I> been used?:</B></FONT><BR><BR>";
 
-	$result = mysql_query("select DATE_FORMAT(playdate,'%W %M %e, %Y at %T') from audit where songid=$song",$db);
-	while ($thisrow = mysql_fetch_row($result)) {
+	$result = mysqli_query($db,"select DATE_FORMAT(playdate,'%W %M %e, %Y at %T') from audit where songid=$song");
+	while ($thisrow = mysqli_fetch_row($result)) {
 		echo "$thisrow[0]<BR>";
 	}
 } else {

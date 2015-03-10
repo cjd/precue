@@ -7,24 +7,24 @@
 		if (!isset($_REQUEST['playlistId'])){
 			echo "<B>Please select the playlist you wish to clear:</B><BR>";
 			echo "<FONT SIZE=3><I>Note: Clearing does not delete the playlist but only the items within it. For now this only clears basic playlists (2 level lists).</I><BR><BR>";
-			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
-			while ($thisrow = mysql_fetch_array($result)) {
+			$result = mysqli_query($db, "SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id");
+			while ($thisrow = mysqli_fetch_array($result)) {
 				echo "<A onclick=\"jumpTo('playlist','plclear','playlistId=".$thisrow['id']."')\">".$thisrow['title']."</A><BR>";	
 			}
 		} else {
             $playlistId = $_REQUEST['playlistId'];
 			//get playlist ids for the items in this playlist
-			$result = mysql_query("SELECT data FROM playlist WHERE playlist=$playlistId", $db);
+			$result = mysqli_query($db, "SELECT data FROM playlist WHERE playlist=$playlistId");
 			echo "Deleted entries for....<BR><BR>";
-			while ($thispid = mysql_fetch_array($result)) {
+			while ($thispid = mysqli_fetch_array($result)) {
 				//delete the page subentries (pages for songs)
-				mysql_query("DELETE FROM playlist WHERE playlist=".$thispid['data'],$db);
+				mysqli_query($db, "DELETE FROM playlist WHERE playlist=".$thispid['data']);
 				//delete the playlist linking entries
-				mysql_query("DELETE FROM playlist WHERE data=".$thispid['data'],$db);
-				$title = mysql_fetch_array(mysql_query("SELECT title FROM playlists where id=".$thispid['data'],$db));
+				mysqli_query($db, "DELETE FROM playlist WHERE data=".$thispid['data']);
+				$title = mysqli_fetch_array(mysqli_query($db, "SELECT title FROM playlists where id=".$thispid['data']));
 
 				//delete the main playlist entry for this song
-				mysql_query("DELETE FROM playlists WHERE id=".$thispid['data'],$db);
+				mysqli_query($db, "DELETE FROM playlists WHERE id=".$thispid['data']);
 				echo $title['title']."<BR>";
 			}
 			echo "<BR><BR><B>The playlist has been cleared.</B>";
@@ -37,8 +37,8 @@
     global $db;
 		if (!isset($_REQUEST['playlistId'])) {
 			echo "<B>Please select the playlist you wish to display:<BR>";
-			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
-			while ($thisrow = mysql_fetch_array($result)) {
+			$result = mysqli_query($db, "SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id");
+			while ($thisrow = mysqli_fetch_array($result)) {
 				echo "<A onclick=\"jumpTo('playlist','showpl','playlistId=$thisrow[id]')\">$thisrow[title]</A><BR>";	
 			}
 		} else {
@@ -50,8 +50,8 @@
     <?PHP
     //get the playlist name
     $playlistId = $_REQUEST['playlistId'];
-    $plname = mysql_query("SELECT title FROM playlists WHERE id=$playlistId", $db);
-    if ($nameret = mysql_fetch_array($plname)) {
+    $plname = mysqli_query($db, "SELECT title FROM playlists WHERE id=$playlistId");
+    if ($nameret = mysqli_fetch_array($plname)) {
         echo "<H2>".$nameret['title']."<H2>";
     }
     ?>
@@ -60,17 +60,17 @@
 	<?PHP
 
 	//get playlist ids of song in currently selected playlist
-	$pids = mysql_query("SELECT data FROM playlist WHERE playlist=$playlistId AND type='play' ORDER BY playorder", $db);
+	$pids = mysqli_query($db, "SELECT data FROM playlist WHERE playlist=$playlistId AND type='play' ORDER BY playorder");
 
-	while ($thispid = mysql_fetch_array($pids)) {
+	while ($thispid = mysqli_fetch_array($pids)) {
 
 		//get song id of this song
-		$sid = mysql_query("SELECT ref FROM playlists WHERE id = $thispid[data]", $db);
-		$thissid = mysql_fetch_array($sid);
+		$sid = mysqli_query($db, "SELECT ref FROM playlists WHERE id = $thispid[data]");
+		$thissid = mysqli_fetch_array($sid);
 
-		$plresult1 = mysql_query("SELECT id, title, artist FROM lyricMain WHERE id=\"$thissid[ref]\"", $db);
+		$plresult1 = mysqli_query($db, "SELECT id, title, artist FROM lyricMain WHERE id=\"$thissid[ref]\"");
 
-		while ($currentsong = mysql_fetch_array($plresult1)) {
+		while ($currentsong = mysqli_fetch_array($plresult1)) {
 
 	
 		echo "\t<TR><TD class=\"title\"><A onclick=\"jumpTo('playlist','showsong','song=$currentsong[id]')\">$currentsong[title]</A></TD><TD class=\"artist\">$currentsong[artist]</TD></TR>\n";
@@ -88,49 +88,49 @@
 
 		if (!isset($_REQUEST['playlistId'])) {
 			echo "<B>Please select the playlist you wish to add the song to:<BR>";
-			$result = mysql_query("SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id", $db);
-			while ($thisrow = mysql_fetch_array($result)) {
+			$result = mysqli_query($db, "SELECT * FROM playlists LEFT JOIN playlist ON playlist.data=playlists.id AND playlist.data NOT LIKE '%-%' AND (type='play' OR type='sub') WHERE data IS NULL AND playlists.id > 0 ORDER BY id");
+			while ($thisrow = mysqli_fetch_array($result)) {
 				echo "<A onclick=\"jumpTo('playlist','plcommit','playlistId=$thisrow[id]&song=".$_REQUEST['song']."')\">$thisrow[title]</A><BR>";	
 			}
 		} else {
             $playlistId = $_REQUEST['playlistId'];
-			$result = mysql_query("select title from lyricMain where id=".$_REQUEST['song'],$db);
-			$title = mysql_fetch_array($result);
+			$result = mysqli_query($db, "select title from lyricMain where id=".$_REQUEST['song']);
+			$title = mysqli_fetch_array($result);
 
 			# Insert main playlist item
 			#--------------------------
 
-			$result = mysql_query("select max(id) + 1 as next from playlists",$db);
-			$nextid = mysql_fetch_array($result);
+			$result = mysqli_query($db, "select max(id) + 1 as next from playlists");
+			$nextid = mysqli_fetch_array($result);
 			$nextid = $nextid['next'];
-            $title['title'] = mysql_real_escape_string($title['title']);
-			mysql_query("insert into playlists (id, title, ref) values('$nextid', '$title[title]','".$_REQUEST['song']."')",$db);
+            $title['title'] = mysqli_real_escape_string($db, $title['title']);
+			mysqli_query($db, "insert into playlists (id, title, ref) values('$nextid', '$title[title]','".$_REQUEST['song']."')");
 
 			# Insert link to parent
 			#----------------------
 
-			$result = mysql_query("select max(playorder) + 1 as next from playlist",$db);
-			$nextpo = mysql_fetch_array($result);
+			$result = mysqli_query($db, "select max(playorder) + 1 as next from playlist");
+			$nextpo = mysqli_fetch_array($result);
 			$nextpo = $nextpo['next'];
-			mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')",$db);
+			mysqli_query($db, "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$playlistId','$nextid','play','0')");
 
 			# Insert page playlist items
 			#---------------------------
 
-			$result = mysql_query("select pageid from page where songid=".$_REQUEST['song']." order by pagenum asc", $db);
+			$result = mysqli_query($db, "select pageid from page where songid=".$_REQUEST['song']." order by pagenum asc");
 
-			while ($thisrow = mysql_fetch_array($result)) {
-				$poresult = mysql_query("select max(playorder) + 1 as next from playlist",$db);
-				$nextpo = mysql_fetch_array($poresult);
+			while ($thisrow = mysqli_fetch_array($result)) {
+				$poresult = mysqli_query($db, "select max(playorder) + 1 as next from playlist");
+				$nextpo = mysqli_fetch_array($poresult);
 				$nextpo = $nextpo['next'];
 
-				mysql_query("insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','".$thisrow['pageid']."','song', 0)",$db);
+				mysqli_query($db, "insert into playlist (playorder, playlist, data, type, transition) values('$nextpo','$nextid','".$thisrow['pageid']."','song', 0)");
 			}
 
 			# Audit this addition
 			#--------------------
 
-			mysql_query("insert into audit (id, songid, playdate) values(0,".$_REQUEST['song'].",NOW())",$db);
+			mysqli_query($db, "insert into audit (id, songid, playdate) values(0,".$_REQUEST['song'].",NOW())");
 
 			echo "The command to insert the song <I>\"".$title['title']."\"</I> into the playlist was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$playlistId')\">here</A> to view the playlist.";
 		}
@@ -185,14 +185,14 @@
       	# Insert main playlist a new playlist
 	#--------------------------
 
-    $result = mysql_query("SELECT id FROM playlists WHERE title LIKE \"".$playlisttitle."\"", $db);
-    if ($thisrow = mysql_fetch_array($result) ) {
+    $result = mysqli_query($db, "SELECT id FROM playlists WHERE title LIKE \"".$playlisttitle."\"");
+    if ($thisrow = mysqli_fetch_array($result) ) {
 	    echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=".$thisrow['id']."')\">here</A> to view the playlist.";
     } else {
-	    $result = mysql_query("select max(id) + 1 as next from playlists",$db);
-	    $nextid = mysql_fetch_array($result);
+	    $result = mysqli_query($db, "select max(id) + 1 as next from playlists");
+	    $nextid = mysqli_fetch_array($result);
 	    $nextid = $nextid['next'];
-	    mysql_query("insert into playlists (id, title, ref) values('$nextid', '$playlisttitle','')",$db);
+	    mysqli_query($db, "insert into playlists (id, title, ref) values('$nextid', '$playlisttitle','')");
 
 	    echo "The command to create a new playlist <I>\"$playlisttitle\"</I> was successful.<BR>Click <A onclick=\"jumpTo('playlist','showpl','playlistId=$nextid')\">here</A> to view the playlist";
     }

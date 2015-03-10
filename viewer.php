@@ -4,13 +4,8 @@ import_request_variables("GPC","");
 include("includes/main.inc");
 include("includes/sessionimport.inc");
 
-if ($db_pwd=='') {
-	$mediadb = mysql_pconnect("$db_host","$db_user");
-} else {
-	$mediadb = mysql_pconnect("$db_host","$db_user","$db_pwd");
-}
-mysql_select_db("mediaDb",$mediadb);
-mysql_set_charset('utf8',$mediadb); 
+$mediadb = mysqli_connect("$db_host","$db_user","$db_pwd","mediaDb");
+mysqli_set_charset($mediadb,'utf8'); 
 
 if ($format=="png") {
 	header("Content-type: image/png");
@@ -25,8 +20,8 @@ if ($format=="png") {
 }
 
 if ($format == "bg") {
-	$result = mysql_query("SELECT description FROM media WHERE id=$imageid",$mediadb);
-	$row = mysql_fetch_row($result);
+	$result = mysqli_query($mediadb,"SELECT description FROM media WHERE id=$imageid");
+	$row = mysqli_fetch_row($result);
 	echo "<FONT SIZE=5><B>";
 	if ($row[0] == "white") {
 		echo "<FONT COLOR=\"000000\">Background colour (White)</FONT>";
@@ -34,8 +29,8 @@ if ($format == "bg") {
 		echo "<FONT COLOR=\"$row[0]\">$row[0]</FONT>";
 	}
 } else {
-$result = mysql_query("SELECT data FROM media WHERE id=$imageid",$mediadb);
-$row = mysql_fetch_row($result);
+$result = mysqli_query($mediadb,"SELECT data FROM media WHERE id=$imageid");
+$row = mysqli_fetch_row($result);
 echo $row[0];
 }
 ?>

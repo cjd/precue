@@ -5,7 +5,7 @@
 
 
 	function addanewsong(){
-	global $db;
+	    global $db;
 
 			?>
 			</CENTER>
@@ -48,29 +48,26 @@
 
 
 			//get the next available song id
-			$result = mysql_query("SELECT MAX(id)+1 FROM lyricMain WHERE id <2000000", $db);
-			$thisrow = mysql_fetch_row($result);
-			$songid = $thisrow[0];
+			$result = mysqli_query($db,"SELECT MAX(id)+1 FROM lyricMain WHERE id <2000000");
+			$thisrow = mysqli_fetch_row($result);
+			$songid = intval($thisrow[0]);
 
 
-            $result = mysql_query("INSERT INTO lyricMain (id, title, songnum, book, artist,written, keywords, entered, copyright) VALUES('$songid','$songname','$songno','$songbook','$artist',now(), '$keywords','','')", $db);
+            $result = mysqli_query($db,"INSERT INTO lyricMain (id, title, songnum, book, artist,written, keywords, entered, copyright) VALUES(".$songid.",'".$_REQUEST['songname']."',".$_REQUEST['songno'].",'".$_REQUEST['songbook']."','".$_REQUEST['artist']."',now(), '".$_REQUEST['keywords']."',now(),'')");
 			$count=0;
 
-			// for all non empty song pages
-			
-			while (count <=19 & $pagesarray[$count] != "") {
-
+			while ($count <$_REQUEST['nopages']) {
 				$pagecount = $count + 1;
-                $lyrics = mysql_real_escape_string(utf8_urldecode($pagesarray[$count]));
+                $lyrics = mysqli_real_escape_string($db,utf8_urldecode($pagesarray[$count]));
 
 				//determine what pageid to give the current page
-				$result = mysql_query("SELECT MAX(pageid)+1 FROM page WHERE pageid < 2000000", $db);
-				$nextpageid = mysql_fetch_row($result);
+				$result = mysqli_query($db,"SELECT MAX(pageid)+1 FROM page WHERE pageid < 2000000");
+				$nextpageid = mysqli_fetch_row($result);
 
 				#ereg_replace($pagesarray[$count],'\r','');
 
 				// insert pageid songid pagenum lyrics
-				mysql_query("INSERT INTO page (pageid, songid, pagenum, lyrics)VALUES('$nextpageid[0]','$songid','$pagecount','$lyrics')",$db);
+				mysqli_query($db,"INSERT INTO page (pageid, songid, pagenum, lyrics)VALUES('".$nextpageid[0]."','".$songid."','".$pagecount."','".$lyrics."')");
 
 				$count ++;
 
@@ -80,10 +77,9 @@
 			
 			<B> Your song has been added to the database, click on the link below to view your song:</B><BR>
 
-			<A onclick="jumpTo('song','showsong','song=<? echo $songid; ?>')">Click here</A><BR>
+			<A onclick="jumpTo('song','showsong','song=<?PHP echo $songid; ?>')">Click here</A><BR>
 
-			or choose another option from the menu. </CENTER><?
+			or choose another option from the menu. </CENTER><?PHP
 
 		}
 ?>
-

@@ -5,7 +5,7 @@
 
 include("includes/main.inc");
 
-$result= mysql_query("SELECT title, artist, songnum FROM lyricMain ORDER BY title", $db);
+$result= mysqli_query($db,"SELECT title, artist, songnum FROM lyricMain ORDER BY title");
 echo "<FONT FACE=ARIAL SIZE=5><B>Lyricue Songlist</B></FONT><BR>";
 $now = date('r');
 echo "<FONT FACE=ARIAL SIZE=4><I>Current as of $now</I></FONT><BR>";
@@ -18,7 +18,7 @@ echo "<FONT FACE=ARIAL SIZE=4><I>Current as of $now</I></FONT><BR>";
 </TR>
 <?PHP
 
-while ($thisrow = mysql_fetch_array($result)) {
+while ($thisrow = mysqli_fetch_array($result)) {
     if ($thisrow['artist'] == "") {
         $thisrow['artist'] = "&nbsp;";
     }

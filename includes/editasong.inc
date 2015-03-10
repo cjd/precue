@@ -8,15 +8,15 @@
 
 function editasong($song) {
     global $db;
-    $result = mysql_query("select * from lyricMain where id='$song'",$db);
-    $thisSong = mysql_fetch_array($result);
-    $result = mysql_query("select * from page where songid='$thisSong[songnum]'",$db);
-    if(mysql_num_rows($result) == 0) {
+    $result = mysqli_query($db,"select * from lyricMain where id='$song'");
+    $thisSong = mysqli_fetch_array($result);
+    $result = mysqli_query($db,"select * from page where songid='$thisSong[songnum]'");
+    if(mysqli_num_rows($result) == 0) {
         $pagesarray = "";
         $nopages = 0; 
     } else {
-        $pagerow = mysql_fetch_array($result);
-        $nopages = mysql_num_rows($result);
+        $pagerow = mysqli_fetch_array($result);
+        $nopages = mysqli_num_rows($result);
     }
     ?>
 
@@ -30,11 +30,11 @@ function editasong($song) {
 	Song No. : <INPUT TYPE="text" SIZE="10" NAME="songno" VALUE="<?PHP echo "$thisSong[songnum]"; ?>">
 
 	<?PHP
-	$wordsresult = mysql_query("SELECT lyrics FROM page WHERE songid=$thisSong[id] ORDER BY pagenum" , $db);
+	$wordsresult = mysqli_query($db,"SELECT lyrics FROM page WHERE songid=$thisSong[id] ORDER BY pagenum" );
 		
 	$curpage=1;
 
-	while ($wordsdata = mysql_fetch_row($wordsresult)) {
+	while ($wordsdata = mysqli_fetch_row($wordsresult)) {
 		echo "<BR><BR><FONT COLOR=\"BLUE\">Page $curpage:<BR>";
 		echo "<TEXTAREA ROWS=\"9\" COLS=50 NAME=\"pagedata$curpage\">$wordsdata[0]</TEXTAREA>";
 
@@ -54,19 +54,18 @@ function editasong($song) {
 			$songid = $songid;
 			
 
-			mysql_query("UPDATE lyricMain SET title='$songname',songnum='$songno',book='$songbook',artist='$artist',written=now(),
-			keywords='$keywords' WHERE id = '$songid'", $db);
+			mysqli_query($db, "UPDATE lyricMain SET title='$songname',songnum='$songno',book='$songbook',artist='$artist',written=now(), keywords='$keywords' WHERE id = '$songid'");
 
 			$count=0;
 
-			$result = mysql_query("select count(*) AS count FROM page WHERE songid='$songid'",$db);
-			$pagecount = mysql_fetch_array($result);
-			$pagecount = $pagecount[count];
+			$result = mysqli_query($db, "select count(*) AS count FROM page WHERE songid='$songid'");
+			$pagecount = mysqli_fetch_array($result);
+			$pagecount = $pagecount['count'];
 			while ($count < $pagecount) {
 			      $lyrics = $pagesarray[$count];
 				$count ++;
-                $lyrics = mysql_real_escape_string(utf8_urldecode($lyrics));
-				mysql_query("UPDATE page SET lyrics='$lyrics' WHERE pagenum=$count AND songid='$songid'",$db);
+                $lyrics = mysqli_real_escape_string($db,utf8_urldecode($lyrics));
+				mysqli_query($db, "UPDATE page SET lyrics='$lyrics' WHERE pagenum=$count AND songid='$songid'");
 
 
 			} ?>
