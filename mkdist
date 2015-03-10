@@ -1,9 +1,9 @@
 #!/bin/bash
 
-for DIST in lucid natty oneiric precise quantal raring
+for DIST in precise quantal raring saucy trusty utopic vivid
 do echo Building for $DIST
 HEADER=`cat debian/changelog-base | head -1`
-echo $HEADER | sed -e "s/quantal/$DIST/g" -e "s/)/${DIST})/g"  > debian/changelog
+echo $HEADER | sed -e "s/utopic/$DIST/g" -e "s/)/${DIST})/g"  > debian/changelog
 echo "" >> debian/changelog
 echo "  * Rebuild for ${DIST}" >> debian/changelog
 echo "" >> debian/changelog
